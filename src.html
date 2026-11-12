@@ -1005,7 +1005,7 @@ document.addEventListener('submit',async e=>{if(e.target.id!=='form')return;e.pr
   catch(err){n.className='notice err';n.innerHTML=z.fail.replace('info@farma.com.gr','<a href="mailto:info@farma.com.gr">info@farma.com.gr</a>')}finally{if(btn)btn.disabled=false}});
 /* Production: settings from config.js, cookie consent, Google Analytics 4, forms that send. */
 const CFG=Object.assign({gaId:'',formEndpoint:'',formExtra:{},formEmail:'info@farma.com.gr'},window.DS_CONFIG||{});
-const HAS_GA=/^G-[A-Z0-9]{4,}$/.test(CFG.gaId||'');
+const HAS_GA=/^(G|GT|GTM)-[A-Z0-9]{4,}$/.test(CFG.gaId||''),IS_GTM=/^GTM-/.test(CFG.gaId||'');
 const PT={
 el:{note:'Θα επικοινωνήσουμε μαζί σας το συντομότερο.',sending:'Αποστολή…',ok:'Ευχαριστούμε! Λάβαμε το μήνυμά σας και θα επικοινωνήσουμε μαζί σας σύντομα.',fail:'Η αποστολή δεν ολοκληρώθηκε. Γράψτε μας στο info@farma.com.gr ή στο WhatsApp.',mail:'Άνοιξε το πρόγραμμα email σας με το μήνυμα έτοιμο. Πατήστε «Αποστολή» για να μας φτάσει.',nlOk:'Ευχαριστούμε για την εγγραφή σας!',ck:'Με τη συγκατάθεσή σας χρησιμοποιούμε cookies του Google Analytics για να μετράμε την επισκεψιμότητα και να βελτιώνουμε τη σελίδα.',yes:'Αποδοχή',no:'Απόρριψη',ckSet:'Ρυθμίσεις cookies',dealer:'Αίτηση dealer',contact:'Μήνυμα από την ιστοσελίδα'},
 en:{note:'We will get back to you as soon as possible.',sending:'Sending…',ok:'Thank you! We have received your message and will contact you shortly.',fail:'Your message could not be sent. Email us at info@farma.com.gr or message us on WhatsApp.',mail:'Your email app has opened with the message ready. Press “Send” so it reaches us.',nlOk:'Thank you for subscribing!',ck:'With your consent we use Google Analytics cookies to measure visits and improve the website.',yes:'Accept',no:'Decline',ckSet:'Cookie settings'},
@@ -1018,8 +1018,8 @@ const ckGet=()=>{try{return localStorage.getItem('ds-consent')}catch(e){return n
 const ckPut=v=>{try{localStorage.setItem('ds-consent',v)}catch(e){}};
 function gaLoad(){if(GA||!HAS_GA)return;GA=true;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};
   gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
-  gtag('js',new Date());gtag('config',CFG.gaId,{send_page_view:false});
-  const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(CFG.gaId);document.head.appendChild(s);pageView()}
+  gtag('js',new Date());if(IS_GTM)dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});else gtag('config',CFG.gaId,{send_page_view:false});
+  const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/'+(IS_GTM?'gtm.js':'gtag/js')+'?id='+encodeURIComponent(CFG.gaId);document.head.appendChild(s);pageView()}
 function track(n,p){if(GA&&window.gtag)gtag('event',n,p||{})}
 function pageView(){track('page_view',{page_location:location.href,page_title:document.title,language:lang})}
 function ckBar(show){let b=$('ck');if(!HAS_GA)return;if(!show){if(b)b.remove();return}const z=PT[lang]||PT.en;
