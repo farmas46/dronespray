@@ -122,7 +122,7 @@ jsf = put(esb(js, 'js'), 'js')
 
 # ---------- favicon + social image ----------
 logo = Image.open(D + 'img/logo.png').convert('RGBA')
-icon = logo.crop((205, 0, 437, 262))
+icon = logo.crop((0, 0, 640, 257))  # whole drone mark (arms + drop), without the text
 def fav(size, pad):
     bg = Image.new('RGBA', (size, size), (246, 183, 11, 255))
     m = Image.new('L', (size, size), 0)
@@ -131,9 +131,9 @@ def fav(size, pad):
     ic = icon.copy(); ic.thumbnail((size - 2 * pad, size - 2 * pad), Image.LANCZOS)
     bg.alpha_composite(ic, ((size - ic.size[0]) // 2, (size - ic.size[1]) // 2))
     bg.putalpha(m); return bg
-fav(32, 4).save(OUT + 'favicon-32.png')
-fav(180, 26).convert('RGB').save(OUT + 'apple-touch-icon.png')
-fav(512, 70).save(OUT + 'icon-512.png')
+fav(32, 2).save(OUT + 'favicon-32.png')
+fav(180, 16).convert('RGB').save(OUT + 'apple-touch-icon.png')
+fav(512, 44).save(OUT + 'icon-512.png')
 og = Image.new('RGB', (1200, 630), (243, 244, 240))
 lg = Image.open(D + 'img/logo.png').convert('RGBA'); lg.thumbnail((330, 330), Image.LANCZOS)
 og.paste(lg, (90, (630 - lg.size[1]) // 2), lg)
