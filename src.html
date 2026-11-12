@@ -756,6 +756,7 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .legal .priv-link{color:#b9bbb3}
 .legal .priv-link:hover{color:#f6b70b}
 .form-priv{grid-column:1/-1;margin:0;font-size:.85rem;color:var(--muted)}
+:where(img[width][height]){width:auto;height:auto}
 .nab{position:absolute;top:78px;right:-70px;width:320px;transform:rotate(45deg);background:#f6b70b;color:#1c1f1b;text-align:center;font-family:Manrope,Arial,sans-serif;font-weight:800;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;line-height:1.1;padding:7px 0;z-index:3;pointer-events:none;box-shadow:0 4px 10px rgba(0,0,0,.12)}.pzt,.plate{position:relative}.pzt .nab{top:60px;right:-88px}
 .nwb{display:inline-flex;align-items:center;background:var(--fg,#1c1f1b);color:#fff;font-family:Manrope,Arial,sans-serif;font-weight:800;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:6px;line-height:1.1}.pz .pzt-tags span.nwb{background:#1c1f1b;color:#fff;border:0;font-weight:800;letter-spacing:.12em}.nwb.big{width:fit-content;align-self:flex-start;font-size:.78rem;padding:7px 12px;margin-bottom:14px}.nwb.sm{font-size:.58rem;padding:3px 7px;margin-left:8px;vertical-align:middle}
 .ck{position:fixed;left:16px;bottom:16px;z-index:1000;max-width:440px;background:#1c1f1b;color:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 18px 50px rgba(0,0,0,.28);font-size:.9rem;line-height:1.5}
@@ -766,7 +767,7 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 </style>
 
 <div class="masthead"><div class="wrap">
-  <a class="brand" href="#home" aria-label="DroneSpray"><img src="img/logo-stacked.svg" alt="DroneSpray Pre-Mixing Systems"></a>
+  <a class="brand" href="#home" aria-label="DroneSpray"><img src="img/logo-stacked.svg" alt="DroneSpray Pre-Mixing Systems" width="387" height="378"></a>
   <p class="slogan" id="slogan"></p>
   <div class="lang" id="lang" role="group" aria-label="Language"></div>
 </div></div>
@@ -957,7 +958,7 @@ function chrome(view){const t=T[lang];document.documentElement.lang=lang;$('slog
   const ln=(h,l,on)=>`<a href="#${h}" ${on?'aria-current="page"':''}>${l}</a>`;
   $('nav').innerHTML=ln('home',t.home,view==='home'&&cur!=='products')+`<div class="dd"><button type="button" class="dd-btn" id="dd-btn" aria-expanded="false" aria-controls="dd-menu" ${inProd?'data-current="true"':''}>${t.products} <span aria-hidden="true">▾</span></button><div class="dd-menu mxm" id="dd-menu"><div class="mx"><div class="mx-row">${prod.map(p=>`<a class="mx-item" href="#${p}" ${view===p?'aria-current="page"':''}><span class="mx-img"><img src="${IMG[p].card}"${SS(IMG[p].card,'120px')} alt="" loading="lazy" decoding="async"></span><b>${p==='pm20'?'Pre-Mixer':NAME[p]}</b><small>${['ds420','ds200c','ds110'].includes(p)?'Cone Series':p==='pm20'?'External':'&nbsp;'}</small><em>${CAPS[p]} L</em></a>`).join('')}</div><div class="mx-foot">${catLink('mx-all mx-cat')}<a class="mx-all" href="#products" ${cur==='products'?'aria-current="page"':''}>${t.allProd} →</a></div></div></div></div>`+ln('accessories',t.accNav,view==='accessories')+ln('network',t.nw.nav,view==='network')+ln('dealers',t.dl.nav,view==='dealers')+ln('contact',t.contact,view==='contact');
   $('lang').innerHTML=[['el','ΕΛ'],['en','EN'],['es','ES'],['it','IT'],['fr','FR']].map(([c,l],i)=>`${i?'<span class="sep" aria-hidden="true"></span>':''}<button type="button" data-lang="${c}" aria-pressed="${c===lang}">${l}</button>`).join('');
-  $('footer').innerHTML=`<div class="wrap ft-top"><a href="#home" class="ft-logo" aria-label="DroneSpray"><img src="img/logo-stacked.svg" alt="DroneSpray Pre-Mixing Systems"></a><p class="ft-slogan">Engineered for drone spraying</p><a class="btn" href="#contact" data-subject="0">${t.quote} →</a></div>${nlBox()}
+  $('footer').innerHTML=`<div class="wrap ft-top"><a href="#home" class="ft-logo" aria-label="DroneSpray"><img src="img/logo-stacked.svg" alt="DroneSpray Pre-Mixing Systems" width="387" height="378"></a><p class="ft-slogan">Engineered for drone spraying</p><a class="btn" href="#contact" data-subject="0">${t.quote} →</a></div>${nlBox()}
 <div class="wrap ft-cols"><div><h3>${t.products}</h3><ul>${['ds600','ds500','ds420','ds400','ds300','ds200','ds200c','ds110','pm20'].map(p=>`<li><a href="#${p}">${FULL[p]}</a></li>`).join('')}</ul></div>
 <div><h3>DroneSpray</h3><ul><li><a href="#products">${t.allProd}</a></li><li>${catLink('ft-cat')}</li><li><a href="#accessories">${t.accNav}</a></li><li><a href="#network">${t.nw.nav}</a></li><li><a href="#dealers">${t.dl.nav}</a></li><li><a href="#contact">${t.contact}</a></li></ul></div>
 <div><h3>${t.contact}</h3><ul><li><span class="k">${t.fPhone}</span>${PH()}</li><li><span class="k">Email</span>${EM()}</li><li><span class="k">WhatsApp</span><a href="${WA()}" target="_blank" rel="noopener">+30 698 325 4053</a></li></ul></div>

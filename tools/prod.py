@@ -31,7 +31,7 @@ for d in ('img', 'fonts', 'assets', 'files'):
 
 # ---------- images ----------
 names = sorted(set(re.findall(r'img/([\w.-]+\.(?:webp|jpg|png|svg))', src)))
-VAR, ren, before, after = {}, {}, 0, 0
+VAR, DIM, ren, before, after = {}, {}, {}, 0, 0
 for n in names:
     p = D + 'img/' + n
     if not os.path.exists(p):
@@ -53,6 +53,7 @@ for n in names:
             shutil.copy(C + f, OUT + 'img/' + f)
         if meta['out'] != n: ren['img/' + n] = 'img/' + meta['out']
         if meta['var']: VAR['img/' + meta['out']] = meta['var']
+        DIM['img/' + meta['out']] = meta.get('dim') or list(Image.open(OUT + 'img/' + meta['out']).size)
         after += os.path.getsize(OUT + 'img/' + meta['out']); continue
     im = Image.open(p)
     im.load()
@@ -69,6 +70,7 @@ for n in names:
         ren['img/' + n] = 'img/' + out
     after += os.path.getsize(OUT + 'img/' + out)
     w = im.size[0]
+    DIM['img/' + out] = list(im.size)
     sets = []
     for tw in (400, 800):
         if w > tw * 1.25:
@@ -81,7 +83,7 @@ for n in names:
     os.makedirs(D + '.cache', exist_ok=True)
     for f in [out] + [x[0][4:] for x in sets]:
         shutil.copy(OUT + 'img/' + f, C + f)
-    json.dump({'out': out, 'files': [out] + [x[0][4:] for x in sets], 'var': VAR.get('img/' + out)}, open(C + 'meta-' + stem + '.json', 'w'))
+    json.dump({'out': out, 'files': [out] + [x[0][4:] for x in sets], 'var': VAR.get('img/' + out), 'dim': DIM['img/' + out]}, open(C + 'meta-' + stem + '.json', 'w'))
 print(f'images: {len(names)} files, {before/1024/1024:.1f} MB -> {after/1024/1024:.1f} MB (+ small versions)')
 for a, b in ren.items():
     js = js.replace(a, b); body = body.replace(a, b); css = css.replace(a, b)
@@ -94,9 +96,12 @@ css = re.sub(r"url\(fonts/([\w.-]+)\.woff\) format\('woff'\)", r"url(../fonts/\1
 css = css.replace('url(img/', 'url(../img/')
 
 # ---------- JS: responsive images ----------
+# SS also writes width/height (intrinsic size) so the browser knows each image's shape;
+# CSS ':where(img[width][height]){width:auto;height:auto}' keeps the layout as before.
 js = js.replace("const SS=(p,z)=>'';",
     "const VAR=" + json.dumps(VAR, separators=(',', ':')) +
-    ";const SS=(p,z)=>{const v=VAR[p];return v?` srcset=\"${v.map(x=>x[0]+' '+x[1]+'w').join(', ')}\" sizes=\"${z||'100vw'}\"`:''};", 1)
+    ",DIM=" + json.dumps(DIM, separators=(',', ':')) +
+    ";const SS=(p,z)=>{const v=VAR[p],d=DIM[p];return(v?` srcset=\"${v.map(x=>x[0]+' '+x[1]+'w').join(', ')}\" sizes=\"${z||'100vw'}\"`:'')+(d?` width=\"${d[0]}\" height=\"${d[1]}\"`:'')};", 1)
 
 def esb(code, loader):
     cmd = [ESB] if ESB else ['npx', '--yes', 'esbuild']
@@ -143,7 +148,7 @@ for f in os.listdir(D + 'files'):
 # ---------- config.js (editable on GitHub without rebuilding) ----------
 open(OUT + 'config.js', 'w', encoding='utf8').write(f"""/* DroneSpray settings. You can edit this file directly on GitHub. */
 window.DS_CONFIG = {{
-  /* Google Analytics 4 measurement ID, e.g. "G-AB12CD34EF". Leave "" to switch analytics and the cookie notice off. */
+  /* Google Analytics 4 measurement ID, e.g. "G-AB12CD34EF", or a Tag Manager container "GTM-XXXXXXX". Leave "" to switch analytics and the cookie notice off. */
   gaId: {json.dumps(CFG.get('gaId', ''))},
   /* Where the contact, dealer and newsletter forms are sent (e.g. a Formspree endpoint "https://formspree.io/f/xxxxxxx").
      Leave "" and the forms open the visitor's email app with the message ready, addressed to formEmail. */
@@ -164,6 +169,10 @@ ld = {"@context": "https://schema.org", "@type": "Organization", "name": "DroneS
       "sameAs": ["https://www.instagram.com/farma_kyratsas_agrimachinery"]}
 if URL:
     ld["url"] = URL + '/'
+# LCP: the big DS600 of the first hero slide. imagesizes must match hsSz() in src.html.
+lcp = VAR.get('img/ds600.webp')
+lcppre = (f'<link rel="preload" as="image" href="img/ds600.webp" imagesrcset="{", ".join(f"{a} {b}w" for a, b in lcp)}" '
+          f'imagesizes="min(56vw, 392px)" fetchpriority="high">') if lcp else ''
 fontpre = ''.join(f'<link rel="preload" href="fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>'
                   for f in ('InterTight-300', 'Manrope-700', 'Commissioner-400') if f in fonts)
 head = f'''<!doctype html>
@@ -186,6 +195,7 @@ head = f'''<!doctype html>
 {f'<meta property="og:url" content="{URL}/">' if URL else ''}
 <meta name="twitter:card" content="summary_large_image">
 {fontpre}
+{lcppre}
 <link rel="stylesheet" href="{cssf}">
 <script src="config.js"></script>
 <script src="{jsf}" defer></script>
