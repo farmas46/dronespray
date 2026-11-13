@@ -38,10 +38,12 @@ Optionally also run `python tools/build.py`.
   - `#accessories`, `#acc-<id>`
   - `#dealers`, `#network`, `#contact`, `#privacy`
   - `render()` builds `#view`; `chrome()` builds the nav, mega menu and footer.
-- Languages `el en es it fr`:
+- Languages `el en es it fr de`:
   - Main text: `T[lang]`.
-  - Other per-language objects: `PZ` (model tiles, `nw` = "New" label), `NLT` (newsletter), `NEWST`, `GALT`, `PRIV`, `CATT`, `ACCX`, `PT` (production texts: forms, cookie banner).
-  - **Every text change must be made in all 5 languages.**
+  - Other per-language objects: `PZ` (model tiles, `nw` = "New" label, `na` = "Temporarily unavailable"), `NLT` (newsletter), `NEWST`, `GALT`, `PRIV`, `CATT`, `ACCX`, `PT` (production texts: forms, cookie banner), `HX`, `HWT`, `PRIVL`, `CO.addr`/`CO.hours`, `ACC[].name`, `NEWS[]`.
+  - German (`de`) lives in one block (`T.de=…`, `PZ.de=…`, …) just before `for(const l in PT)`; `PRIV` has no `de` and falls back to English like es/it/fr.
+  - **Every text change must be made in all 6 languages.**
+  - Company name: `coName()` gives the Greek name on `el`, "FARMA KYRATSAS AGRICULTURAL MACHINERY" on every other language.
 - Model data:
   - `IMG`, `GAL` (extra photos), `NAME`, `FULL`, `CAPS`, `PZK` (filter keys), `SPEC`.
   - `SPEC` holds capacity and dimensions in cm and kg. Missing `SPEC` means the page shows "data coming soon".
