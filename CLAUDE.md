@@ -41,7 +41,7 @@ Optionally also run `python tools/build.py`.
 - Languages `el en es it fr de`:
   - Main text: `T[lang]`.
   - Other per-language objects: `PZ` (model tiles, `nw` = "New" label, `na` = "Temporarily unavailable"), `NLT` (newsletter), `NEWST`, `GALT`, `PRIV`, `CATT`, `ACCX`, `PT` (production texts: forms, cookie banner), `HX`, `HWT`, `PRIVL`, `CO.addr`/`CO.hours`, `ACC[].name`, `NEWS[]`.
-  - German (`de`) lives in one block (`T.de=…`, `PZ.de=…`, …) just before `for(const l in PT)`; `PRIV` has no `de` and falls back to English like es/it/fr.
+  - German (`de`) lives in one block (`T.de=…`, `PZ.de=…`, …) just before `for(const l in PT)`; `PRIV` exists in el, en and de; es/it/fr fall back to English.
   - **Every text change must be made in all 6 languages.**
   - Company name: `coName()` gives the Greek name on `el`, "FARMA KYRATSAS AGRICULTURAL MACHINERY" on every other language.
 - Model data:
