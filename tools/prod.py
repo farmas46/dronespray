@@ -244,6 +244,10 @@ open(OUT + '_headers', 'w').write('''/assets/*
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 ''')
 shutil.copy(D + 'tools/README-site.md', OUT + 'README.md')
+# Files published as-is at the site root (search engine verification files etc.). Do not delete them.
+if os.path.isdir(D + 'tools/static'):
+    for f in os.listdir(D + 'tools/static'):
+        shutil.copy(D + 'tools/static/' + f, OUT + f)
 
 tot = sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(OUT) for f in fs)
 print('css', os.path.getsize(OUT + cssf) // 1024, 'KB  js', os.path.getsize(OUT + jsf) // 1024, 'KB  html',
