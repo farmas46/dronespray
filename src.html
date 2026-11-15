@@ -984,7 +984,7 @@ document.addEventListener('click',e=>{const l=e.target.closest('[data-lang]');if
   const z=e.target.closest('[data-zoom]');if(z){BOXSET=z.dataset.set?[...document.querySelectorAll(`[data-set="${z.dataset.set}"]`)].map(x=>x.dataset.zoom):[];BOXI=Math.max(0,BOXSET.indexOf(z.dataset.zoom));$('box').classList.toggle('multi',BOXSET.length>1);$('box-img').src=z.dataset.zoom;$('box').showModal();return}
   if(e.target.closest('#box-close')){$('box').close();$('box').classList.remove('zin');return}
   if(e.target.id==='box-img'){$('box').classList.toggle('zin');return}
-  const a=e.target.closest('a[href^="#"]');if(a){if(a.dataset.product)form.product=a.dataset.product;if(a.dataset.country){form.country=a.dataset.country;form.msg=T[lang].nw.msg(a.dataset.country)}if(a.dataset.subject!==undefined)form.subject=a.dataset.subject;formState=null;
+  const a=e.target.closest('a[data-r],a[href^="#"]');if(a){if(a.dataset.product)form.product=a.dataset.product;if(a.dataset.country){form.country=a.dataset.country;form.msg=T[lang].nw.msg(a.dataset.country)}if(a.dataset.subject!==undefined)form.subject=a.dataset.subject;formState=null;
     $('nav').dataset.open='false';$('menu').setAttribute('aria-expanded','false');if(a.getAttribute('href')===location.hash){e.preventDefault();render(true)}}
   const pg=e.target.closest('[data-pg]');if(pg){pgGo(+pg.dataset.pg);return}
   const pn=e.target.closest('[data-pgnav]');if(pn){pgGo(PGI+ +pn.dataset.pgnav);return}
@@ -1091,6 +1091,55 @@ async function sendForm(kind,data){const L=T.el,subj=kind==='newsletter'?'Newsle
   const txt=Object.entries(out).map(([k,v])=>k+': '+v).join('\n');location.href='mailto:'+CFG.formEmail+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(txt);track(kind==='newsletter'?'sign_up':'generate_lead',{form:kind,via:'email'});return 'mail'}
 function formData(){const t=T.el,d={...form};if(d.subject!==undefined&&d.subject!=='')d.subject=t.subjects[+d.subject]||d.subject;if(d.product){const a=ACC.find(x=>x.id===d.product);d.product=a?a.name.el:(FULL[d.product]||d.product)}if(d.biz!==undefined&&d.biz!==''&&t.dl.who&&!isNaN(+d.biz))d.biz=(t.dl.who[+d.biz]||d.biz);d.lang=lang.toUpperCase();d.page=location.href;return d}
 window.addEventListener('hashchange',()=>{render(true);pageView()});
+/* Real URLs: Greek at /ds600/, other languages at /en/ds600/, /de/ds600/ ... Old #ds600 links still work.
+   Every page also gets its own title, description, canonical and hreflang. tools/prerender.ps1 saves each page as static HTML. */
+const SITE='https://www.dronespray-premixingsystems.com',LANGS=['el','en','es','it','fr','de'],
+  RVIEWS=['home','ds600','ds500','ds420','ds400','ds300','ds200','ds200c','ds110','pm20','accessories','dealers','network','contact','privacy'].concat(ACC.map(a=>'acc-'+a.id)),
+  PRE=/[?&]prerender\b/.test(location.search);
+let CUR='home';
+const pathOf=(v,l)=>(l==='el'?'':'/'+l)+(v==='home'?'':'/'+v)+'/';
+function parsePath(p){const s=p.split('/').filter(Boolean);let l='el';if(s[0]&&LANGS.includes(s[0]))l=s.shift();const v=s.length===1&&RVIEWS.includes(s[0])?s[0]:s.length?null:'home';return v?[l,v]:null}
+route=function(){return CUR};
+function fixLinks(){document.querySelectorAll('a[href^="#"]').forEach(a=>{const h=a.getAttribute('href').slice(1);if(h==='products'){a.dataset.r='products';a.setAttribute('href',pathOf('home',lang)+'#products')}else if(RVIEWS.includes(h)){a.dataset.r=h;a.setAttribute('href',pathOf(h,lang))}})}
+function setTag(sel,make,attr,val){let el=document.head.querySelector(sel);if(!el){el=document.createElement(make[0]);for(const[k,v]of Object.entries(make[1]))el.setAttribute(k,v);document.head.appendChild(el)}el.setAttribute(attr,val)}
+function pageDesc(v){const t=T[lang];const cut=s=>{s=String(s||'').replace(/\s+/g,' ').trim();return s.length>160?s.slice(0,157).replace(/\s+\S*$/,'')+'…':s};
+  if(v==='home')return cut(t.h1+'. '+t.lead);
+  if(t.intro&&t.intro[v])return cut(t.intro[v]);
+  if(v.startsWith('acc-')){const a=ACC.find(x=>'acc-'+x.id===v);return cut((a?a.name[lang]+'. ':'')+(t.accDetP||''))}
+  return cut({accessories:t.accPageP,dealers:t.dl&&t.dl.p,network:t.nw&&t.nw.p,contact:t.cP,privacy:(PRIV[lang]||PRIV.en).intro}[v]||t.lead)}
+function seoHead(v){const t=T[lang],url=SITE+pathOf(v,lang);
+  if(v==='home')document.title='DroneSpray | '+t.h1;
+  else if(FULL[v]&&t.desc&&SPEC[v])document.title=FULL[v]+' – '+t.desc(SPEC[v].cap)+' | DroneSpray';
+  const d=pageDesc(v);
+  setTag('meta[name="description"]',['meta',{name:'description'}],'content',d);
+  setTag('link[rel="canonical"]',['link',{rel:'canonical'}],'href',url);
+  setTag('meta[property="og:url"]',['meta',{property:'og:url'}],'content',url);
+  setTag('meta[property="og:title"]',['meta',{property:'og:title'}],'content',document.title);
+  setTag('meta[property="og:description"]',['meta',{property:'og:description'}],'content',d);
+  const img=IMG[v]?SITE+'/'+IMG[v].card:SITE+'/og-image.jpg';
+  setTag('meta[property="og:image"]',['meta',{property:'og:image'}],'content',img);
+  const loc={el:'el_GR',en:'en_GB',es:'es_ES',it:'it_IT',fr:'fr_FR',de:'de_DE'};
+  setTag('meta[property="og:locale"]',['meta',{property:'og:locale'}],'content',loc[lang]);
+  document.head.querySelectorAll('meta[property="og:locale:alternate"]').forEach(m=>m.remove());
+  document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach(l=>l.remove());
+  LANGS.concat('x-default').forEach(l=>{const k=document.createElement('link');k.rel='alternate';k.hreflang=l;k.href=SITE+pathOf(v,l==='x-default'?'en':l);document.head.appendChild(k)})}
+const _render=render;
+render=function(s){_render(s);fixLinks();seoHead(CUR)};
+function go(v,hash,replace){CUR=v;history[replace?'replaceState':'pushState'](null,'',pathOf(v,lang)+(hash||''));render(true);if(hash==='#products'){const p=$('products');if(p)p.scrollIntoView()}pageView()}
+document.addEventListener('click',e=>{
+  if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  const lb=e.target.closest('[data-lang]');
+  if(lb){e.preventDefault();e.stopImmediatePropagation();lang=lb.dataset.lang;try{localStorage.setItem('ds-lang',lang)}catch(_){}history.replaceState(null,'',pathOf(CUR,lang));render(false);pageView();return}
+  const a=e.target.closest('a[data-r]');if(!a||e.target.closest('[data-jump]'))return;
+  e.preventDefault();const r=a.dataset.r;
+  setTimeout(()=>go(r==='products'?'home':r,r==='products'?'#products':''),0)},true);
+window.addEventListener('popstate',()=>{const p=parsePath(location.pathname);if(p){[lang,CUR]=p;render(true);pageView()}});
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(RVIEWS.includes(h)&&h!=='home')go(h,'',true)});
+(function(){const h=location.hash.slice(1),p=parsePath(location.pathname)||['el','home'];[lang,CUR]=p;
+  if(RVIEWS.includes(h)&&h!=='home')CUR=h;
+  if(location.pathname==='/'&&!PRE){try{const s=localStorage.getItem('ds-lang');if(s&&s!=='el'&&LANGS.includes(s))lang=s}catch(_){}}
+  if(!PRE)history.replaceState(null,'',pathOf(CUR,lang)+(h==='products'?'#products':''));
+  if(PRE){ckInit=()=>{};startSlides=()=>{};startCar=()=>{}}})();
 render(false);ckInit();
 if(location.hash==='#products')$('products').scrollIntoView();
 </script>

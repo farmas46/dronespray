@@ -186,6 +186,7 @@ head = f'''<!doctype html>
 <html lang="el">
 <head>
 <meta charset="utf-8">
+<base href="/">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
@@ -217,7 +218,9 @@ html = re.sub(r'>\n\s+<', '>\n<', html)
 if seobody:
     html = html.replace('<main id="view"></main>', '<main id="view">' + seobody + '</main>', 1)
 open(OUT + 'index.html', 'w', encoding='utf8').write(html)
-open(OUT + '404.html', 'w', encoding='utf8').write('<!doctype html><meta charset="utf-8"><title>DroneSpray</title><meta http-equiv="refresh" content="0;url=./"><a href="./">DroneSpray</a>\n')
+# 404.html is the app itself: the router reads the path, so /en/ds600/ works even before prerendering.
+# Then run tools/prerender.ps1 to write a static page for every language and page.
+open(OUT + '404.html', 'w', encoding='utf8').write(html)
 
 # ---------- host files ----------
 open(OUT + '.nojekyll', 'w').write('')

@@ -37,12 +37,14 @@ Optionally also run `python tools/build.py`.
 
 ## How the app works (inside the script in src.html)
 
-- Hash routing:
-  - `#home`, `#products`
-  - model ids: `ds600 ds500 ds420 ds400 ds300 ds200 ds200c ds110 pm20`
-  - `#accessories`, `#acc-<id>`
-  - `#dealers`, `#network`, `#contact`, `#privacy`
+- Real URLs (router block just before `render(false);ckInit();`):
+  - Greek at the root: `/`, `/ds600/`, `/contact/`; other languages under a prefix: `/en/`, `/de/ds600/`, `/it/acc-reel/`.
+  - views: `home`, model ids `ds600 ds500 ds420 ds400 ds300 ds200 ds200c ds110 pm20`, `accessories`, `acc-<id>`, `dealers`, `network`, `contact`, `privacy`. `products` is the home page scrolled to `#products`.
+  - Templates still write `href="#ds600"`; `fixLinks()` turns them into real paths after every render and marks them `data-r`. Old `#ds600` links still work.
+  - `seoHead()` sets title, description, canonical, og tags and hreflang (x-default = English) per page. `SITE` holds the live URL.
+  - `<base href="/">` in the head keeps relative asset paths working in sub-folders.
   - `render()` builds `#view`; `chrome()` builds the nav, mega menu and footer.
+- Static pages: after a build, run `powershell -File tools\prerender.ps1`. It serves `dist/` locally, opens every page × language in headless Edge, saves `dist/<lang>/<view>/index.html`, copies the template to `404.html` and writes the full sitemap with hreflang. New views or languages must be added to the lists in both the router block and `prerender.ps1`.
 - Languages `el en es it fr de`:
   - Main text: `T[lang]`.
   - Other per-language objects: `PZ` (model tiles, `nw` = "New" label, `na` = "Temporarily unavailable"), `NLT` (newsletter), `NEWST`, `GALT`, `PRIV`, `CATT`, `ACCX`, `PT` (production texts: forms, cookie banner), `HX`, `HWT`, `PRIVL`, `CO.addr`/`CO.hours`, `ACC[].name`, `NEWS[]`.

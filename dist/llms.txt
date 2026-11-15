@@ -21,6 +21,17 @@ All units have a polyethylene tank on a metal frame, continuous dual agitation, 
 - DS110 Cone: 110 L conical tank, 12 V diaphragm pump, up to 19 L/min, runs from a 12 V battery with no 220 V power needed in the field.
 - External Pre-Mixer 20 L: standalone pre-mixing unit with its own 1 HP stainless centrifugal pump, up to 60 L/min, 220 V. 70 × 40 × 45 cm. Also optional equipment for the DS600 and DS420.
 
+## Pages
+
+Every page exists in six languages: Greek at the root, the others under /en/, /de/, /es/, /it/, /fr/.
+
+- Models: https://www.dronespray-premixingsystems.com/en/ (overview), https://www.dronespray-premixingsystems.com/en/ds600/, https://www.dronespray-premixingsystems.com/en/ds500/, https://www.dronespray-premixingsystems.com/en/ds420/, https://www.dronespray-premixingsystems.com/en/ds400/, https://www.dronespray-premixingsystems.com/en/ds300/, https://www.dronespray-premixingsystems.com/en/ds200/, https://www.dronespray-premixingsystems.com/en/ds200c/, https://www.dronespray-premixingsystems.com/en/ds110/, https://www.dronespray-premixingsystems.com/en/pm20/
+- Accessories: https://www.dronespray-premixingsystems.com/en/accessories/
+- Become a dealer: https://www.dronespray-premixingsystems.com/en/dealers/
+- Partner network: https://www.dronespray-premixingsystems.com/en/network/
+- Contact: https://www.dronespray-premixingsystems.com/en/contact/
+- Greek: https://www.dronespray-premixingsystems.com/ds600/ · German: https://www.dronespray-premixingsystems.com/de/ds600/ · Spanish: https://www.dronespray-premixingsystems.com/es/ds600/ · Italian: https://www.dronespray-premixingsystems.com/it/ds600/ · French: https://www.dronespray-premixingsystems.com/fr/ds600/
+
 ## Optional equipment and accessories
 
 External pre-mixers (20, 25, 26, 35, 37, 45 L), 1.5 HP and 2 HP stainless centrifugal pumps, automatic refuelling hose reel 1" (10/15 m), tank lid mixer, powder dispersion and bottle rinsing system, digital refuelling nozzle, digital flow meter 1", electrical control panel, LED work lights, reinforced transport wheels with brake.
