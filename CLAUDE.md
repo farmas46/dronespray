@@ -15,6 +15,11 @@ Static, multilingual catalogue site for DroneSpray pre-mixing systems for agricu
   - Writes `config.js`, favicon, og-image, robots, sitemap, CNAME, `_headers`, `.nojekyll`.
   - Settings come from `tools/site.json` (`url`, `gaId`, `formEndpoint`, `formEmail`).
   - Image results are cached in `.cache/`.
+- SEO / GEO files, read by `prod.py` (`{URL}` = `site.json` url):
+  - `tools/seo-head.html`: robots, og:locale, geo tags, JSON-LD graph (LocalBusiness, Brand, WebSite, 9 Products). Update it when models, specs or contact details change.
+  - `tools/seo-body.html`: crawlable static content inside `<main id="view">` for crawlers without JavaScript; the app replaces it on load.
+  - `tools/llms.txt`: English summary for AI assistants, published at `/llms.txt`.
+  - `prod.py` also writes an image sitemap.
 - `tools/build.py`: single-file preview build → `index.html`, with images and fonts embedded as base64. Used for the claude.ai artifact preview only.
 - `tools/privacy.py`: privacy policy text (EL/EN). After editing it, regenerate the `const PRIV=...;` line in `src.html` from `privacy.js()`.
 
