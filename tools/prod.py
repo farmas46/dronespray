@@ -173,6 +173,13 @@ if URL:
 lcp = VAR.get('img/ds600.webp')
 lcppre = (f'<link rel="preload" as="image" href="img/ds600.webp" imagesrcset="{", ".join(f"{a} {b}w" for a, b in lcp)}" '
           f'imagesizes="min(56vw, 392px)" fetchpriority="high">') if lcp else ''
+# SEO / GEO: extra head tags with the JSON-LD graph (tools/seo-head.html) and crawlable static
+# content shown before the app renders (tools/seo-body.html). {URL} is replaced with the site URL.
+def tool_text(name):
+    p = D + 'tools/' + name
+    return open(p, encoding='utf8').read().replace('{URL}', URL).strip() if os.path.exists(p) else ''
+seohead, seobody = tool_text('seo-head.html'), tool_text('seo-body.html')
+ldtag = '' if seohead else f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
 fontpre = ''.join(f'<link rel="preload" href="fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>'
                   for f in ('InterTight-300', 'Manrope-700', 'Commissioner-400') if f in fonts)
 head = f'''<!doctype html>
@@ -194,18 +201,21 @@ head = f'''<!doctype html>
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 {f'<meta property="og:url" content="{URL}/">' if URL else ''}
 <meta name="twitter:card" content="summary_large_image">
+{seohead}
 {fontpre}
 {lcppre}
 <link rel="stylesheet" href="{cssf}">
 <script src="config.js"></script>
 <script src="{jsf}" defer></script>
-<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+{ldtag}
 </head>
 <body>
 <noscript><p style="padding:24px;font:16px Arial,sans-serif">Η ιστοσελίδα χρειάζεται JavaScript. This website needs JavaScript. Τηλ. 2410 622500 · info@farma.com.gr</p></noscript>
 '''
 html = head + re.sub(r'\n\s*\n', '\n', body) + '\n</body>\n</html>\n'
 html = re.sub(r'>\n\s+<', '>\n<', html)
+if seobody:
+    html = html.replace('<main id="view"></main>', '<main id="view">' + seobody + '</main>', 1)
 open(OUT + 'index.html', 'w', encoding='utf8').write(html)
 open(OUT + '404.html', 'w', encoding='utf8').write('<!doctype html><meta charset="utf-8"><title>DroneSpray</title><meta http-equiv="refresh" content="0;url=./"><a href="./">DroneSpray</a>\n')
 
@@ -214,7 +224,11 @@ open(OUT + '.nojekyll', 'w').write('')
 open(OUT + 'robots.txt', 'w').write('User-agent: *\nAllow: /\n' + (f'Sitemap: {URL}/sitemap.xml\n' if URL else ''))
 if URL:
     today = datetime.date.today().isoformat()
-    open(OUT + 'sitemap.xml', 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>{URL}/</loc><lastmod>{today}</lastmod></url></urlset>\n')
+    simg = ['og-image.jpg'] + [f'img/{n}.webp' for n in ('ph1', 'ph3', 'ph4', 'ph5', 'ds600', 'ds500', 'ds420', 'ds400', 'ds300', 'ds200', 'ds200c', 'ds110', 'pm20')]
+    simg = ''.join(f'<image:image><image:loc>{URL}/{i}</image:loc></image:image>' for i in simg if os.path.exists(OUT + i))
+    open(OUT + 'sitemap.xml', 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"><url><loc>{URL}/</loc><lastmod>{today}</lastmod>{simg}</url></urlset>\n')
+    if tool_text('llms.txt'):
+        open(OUT + 'llms.txt', 'w', encoding='utf8').write(tool_text('llms.txt') + '\n')
     host = URL.split('://', 1)[1].split('/')[0]
     if not host.endswith('github.io') and not host.endswith('netlify.app'):
         open(OUT + 'CNAME', 'w').write(host + '\n')
