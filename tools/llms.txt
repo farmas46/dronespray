@@ -32,6 +32,10 @@ Every page exists in six languages: Greek at the root, the others under /en/, /d
 - Contact: {URL}/en/contact/
 - Greek: {URL}/ds600/ · German: {URL}/de/ds600/ · Spanish: {URL}/es/ds600/ · Italian: {URL}/it/ds600/ · French: {URL}/fr/ds600/
 
+## Warranty and delivery
+
+All machines have a 1-year warranty. Delivery usually takes 3–4 weeks, depending on availability.
+
 ## Optional equipment and accessories
 
 External pre-mixers (20, 25, 26, 35, 37, 45 L), 1.5 HP and 2 HP stainless centrifugal pumps, automatic refuelling hose reel 1" (10/15 m), tank lid mixer, powder dispersion and bottle rinsing system, digital refuelling nozzle, digital flow meter 1", electrical control panel, 12 V diaphragm pump (6.2 bar, 20 L/min), adjustable bracket for the external pre-mixer, water-sensitive spray paper for checking spray coverage (26 × 76 mm, packs of 50), automatic tank lid (Ø367 and Ø462 mm), conversion kit that turns a pre-mixing system into a herbicide sprayer (two spray guns with stainless lances), plastic refuelling nozzle 1" (white or black), stainless (INOX) chemical container rinsing system, automatic main tank filling kit from an external supply (3-way valve and suction hose), LED work lights, reinforced transport wheels with brake.

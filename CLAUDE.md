@@ -83,10 +83,10 @@ Optionally also run `python tools/build.py`.
 
 ## Open items
 
+- Warranty: 1 year; delivery usually 3–4 weeks depending on availability (`WD` in src.html, side box on model pages).
 - Missing data:
   - DS110 dimensions and weight.
   - DS200 Cone outlets (3 or 4).
-  - Warranty text.
 - Site settings:
   - Domain: goes in `tools/site.json` → `url`.
   - GA4 measurement ID.
