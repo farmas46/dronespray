@@ -23,14 +23,14 @@ All units have a polyethylene tank on a metal frame, continuous dual agitation, 
 
 ## Pages
 
-Every page exists in six languages: Greek at the root, the others under /en/, /de/, /es/, /it/, /fr/.
+Every page exists in seven languages: Greek at the root, the others under /en/, /de/, /es/, /it/, /fr/, /ro/.
 
 - Models: {URL}/en/ (overview), {URL}/en/ds600/, {URL}/en/ds500/, {URL}/en/ds420/, {URL}/en/ds400/, {URL}/en/ds300/, {URL}/en/ds200/, {URL}/en/ds200c/, {URL}/en/ds110/, {URL}/en/pm20/
 - Accessories: {URL}/en/accessories/
 - Become a dealer: {URL}/en/dealers/
 - Partner network: {URL}/en/network/
 - Contact: {URL}/en/contact/
-- Greek: {URL}/ds600/ · German: {URL}/de/ds600/ · Spanish: {URL}/es/ds600/ · Italian: {URL}/it/ds600/ · French: {URL}/fr/ds600/
+- Greek: {URL}/ds600/ · German: {URL}/de/ds600/ · Spanish: {URL}/es/ds600/ · Italian: {URL}/it/ds600/ · French: {URL}/fr/ds600/ · Romanian: {URL}/ro/ds600/
 
 ## Warranty and delivery
 

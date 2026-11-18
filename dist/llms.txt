@@ -23,14 +23,14 @@ All units have a polyethylene tank on a metal frame, continuous dual agitation, 
 
 ## Pages
 
-Every page exists in six languages: Greek at the root, the others under /en/, /de/, /es/, /it/, /fr/.
+Every page exists in seven languages: Greek at the root, the others under /en/, /de/, /es/, /it/, /fr/, /ro/.
 
 - Models: https://www.dronespray-premixingsystems.com/en/ (overview), https://www.dronespray-premixingsystems.com/en/ds600/, https://www.dronespray-premixingsystems.com/en/ds500/, https://www.dronespray-premixingsystems.com/en/ds420/, https://www.dronespray-premixingsystems.com/en/ds400/, https://www.dronespray-premixingsystems.com/en/ds300/, https://www.dronespray-premixingsystems.com/en/ds200/, https://www.dronespray-premixingsystems.com/en/ds200c/, https://www.dronespray-premixingsystems.com/en/ds110/, https://www.dronespray-premixingsystems.com/en/pm20/
 - Accessories: https://www.dronespray-premixingsystems.com/en/accessories/
 - Become a dealer: https://www.dronespray-premixingsystems.com/en/dealers/
 - Partner network: https://www.dronespray-premixingsystems.com/en/network/
 - Contact: https://www.dronespray-premixingsystems.com/en/contact/
-- Greek: https://www.dronespray-premixingsystems.com/ds600/ · German: https://www.dronespray-premixingsystems.com/de/ds600/ · Spanish: https://www.dronespray-premixingsystems.com/es/ds600/ · Italian: https://www.dronespray-premixingsystems.com/it/ds600/ · French: https://www.dronespray-premixingsystems.com/fr/ds600/
+- Greek: https://www.dronespray-premixingsystems.com/ds600/ · German: https://www.dronespray-premixingsystems.com/de/ds600/ · Spanish: https://www.dronespray-premixingsystems.com/es/ds600/ · Italian: https://www.dronespray-premixingsystems.com/it/ds600/ · French: https://www.dronespray-premixingsystems.com/fr/ds600/ · Romanian: https://www.dronespray-premixingsystems.com/ro/ds600/
 
 ## Warranty and delivery
 

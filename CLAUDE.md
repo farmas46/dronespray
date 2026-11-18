@@ -44,12 +44,13 @@ Optionally also run `python tools/build.py`.
   - `seoHead()` sets title, description, canonical, og tags and hreflang (x-default = English) per page. `SITE` holds the live URL.
   - `<base href="/">` in the head keeps relative asset paths working in sub-folders.
   - `render()` builds `#view`; `chrome()` builds the nav, mega menu and footer.
-- Static pages: after a build, run `powershell -File tools\prerender.ps1`. It serves `dist/` locally, opens every page × language in headless Edge, saves `dist/<lang>/<view>/index.html`, copies the template to `404.html` and writes the full sitemap with hreflang. New views or languages must be added to the lists in both the router block and `prerender.ps1`.
-- Languages `el en es it fr de`:
+- Static pages: after a build, run `powershell -File tools\prerender.ps1` on Windows, or `python3 tools/prerender.py` on Mac (uses Google Chrome; keep its `LANGS`/`VIEWS` lists in step with the .ps1). It serves `dist/` locally, opens every page × language in headless Edge, saves `dist/<lang>/<view>/index.html`, copies the template to `404.html` and writes the full sitemap with hreflang. New views or languages must be added to the lists in the router block, `prerender.ps1` and `prerender.py`.
+- Languages `el en es it fr de ro`:
   - Main text: `T[lang]`.
   - Other per-language objects: `PZ` (model tiles, `nw` = "New" label, `na` = "Temporarily unavailable"), `NLT` (newsletter), `NEWST`, `GALT`, `PRIV`, `CATT`, `ACCX`, `PT` (production texts: forms, cookie banner), `HX`, `HWT`, `PRIVL`, `CO.addr`/`CO.hours`, `ACC[].name`, `NEWS[]`.
-  - German (`de`) lives in one block (`T.de=…`, `PZ.de=…`, …) just before `for(const l in PT)`; `PRIV` exists in el, en and de; es/it/fr fall back to English.
-  - **Every text change must be made in all 6 languages.**
+  - German (`de`) and Romanian (`ro`) each live in one block (`T.de=…`, `T.ro=…`, `PZ.ro=…`, …) just before `for(const l in PT)`; `PRIV` exists in el, en, de and ro; es/it/fr fall back to English.
+  - Romanian letters ă ș ț are not in the main font files: `fonts/*-ro.woff` hold just those glyphs, loaded with `unicode-range`.
+  - **Every text change must be made in all 7 languages.**
   - Company name: `coName()` gives the Greek name on `el`, "FARMA KYRATSAS AGRICULTURAL MACHINERY" on every other language.
 - Model data:
   - `IMG`, `GAL` (extra photos), `NAME`, `FULL`, `CAPS`, `PZK` (filter keys), `SPEC`.
