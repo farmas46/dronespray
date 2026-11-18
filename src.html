@@ -162,6 +162,7 @@ section.band.white{background:var(--sheet);border-block:1px solid var(--line)}
 .box-nav:hover{background:#f6b70b}
 .box-nav svg{width:20px;height:20px}
 #box.multi .box-nav{display:grid}
+.box-count{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);z-index:2;font-family:Manrope,Arial,sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.04em;color:#fff;background:rgba(28,31,27,.6);padding:4px 12px;border-radius:999px;pointer-events:none}.box-count:empty{display:none}
 #box-prev{left:12px}#box-next{right:12px}
 @media (max-width:700px){.phg-item{flex-basis:86%}}
 
@@ -971,7 +972,7 @@ function chrome(view){const t=T[lang];document.documentElement.lang=lang;$('slog
   $('box-close').setAttribute('aria-label',t.close);$('box-close').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'}
 function render(scroll){const view=route();clearInterval(slideTimer);clearInterval(carTimer);$('view').innerHTML=view==='home'?home():view==='contact'?contact():view==='accessories'?accessories():view==='dealers'?dealers():view==='network'?network():view==='privacy'?privacy():view.startsWith('acc-')?accPage(view.slice(4)):product(view);chrome(view.startsWith('acc-')?'accessories':view);startSlides();startCar();pzApply();pageTitle(view);if($('ck'))ckBar(true);
   if(scroll){const a=location.hash==='#products'?$('products'):null;if(a)a.scrollIntoView();else window.scrollTo(0,0)}}
-let BOXSET=[],BOXI=0;function boxGo(d){if(BOXSET.length<2)return;BOXI=(BOXI+d+BOXSET.length)%BOXSET.length;$('box-img').src=BOXSET[BOXI]}
+let BOXSET=[],BOXI=0,BOXPG=false;function boxCount(){let c=$("box-count");if(!c){c=document.createElement("span");c.id="box-count";c.className="box-count";$("box").appendChild(c)}c.textContent=BOXSET.length>1?(BOXI+1)+" / "+BOXSET.length:""}function boxGo(e){if(BOXSET.length<2)return;BOXI=(BOXI+e+BOXSET.length)%BOXSET.length;$("box-img").src=BOXSET[BOXI];$("box").classList.remove("zin");boxCount();if(BOXPG)pgGo(BOXI)}(()=>{let x0=null;const b=$("box");b.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener("touchend",e=>{if(x0===null||b.classList.contains("zin"))return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40)boxGo(dx<0?1:-1)})})();
 document.addEventListener('keydown',e=>{if(!$('box').open)return;if(e.key==='ArrowRight')boxGo(1);if(e.key==='ArrowLeft')boxGo(-1)});
 let ddT=null;document.addEventListener('mouseover',e=>{const d=e.target.closest&&e.target.closest('.dd');const all=document.querySelector('.dd');if(!all||!matchMedia('(hover:hover)').matches)return;if(d){clearTimeout(ddT);all.dataset.open='true'}else if(all.dataset.open==='true'){clearTimeout(ddT);ddT=setTimeout(()=>{all.dataset.open='false'},450)}});
 document.addEventListener('submit',e=>{if(e.target.id!=='nl')return;e.preventDefault();const z=NLT[lang],em=$('nl-email').value.trim(),ok=$('nl-ok').checked,m=$('nl-msg');if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)||!ok){m.textContent=z.err;m.className='ft-nl-msg err';return}const f=e.target,b=f.querySelector('[type=submit]');if(b)b.disabled=true;m.className='ft-nl-msg';m.textContent=(PT[lang]||PT.en).sending;sendForm('newsletter',{email:em,lang:lang.toUpperCase(),page:location.href}).then(r=>{m.textContent=r==='sent'?z.ok:(PT[lang]||PT.en).mail;m.className='ft-nl-msg ok';f.reset()}).catch(()=>{m.textContent=(PT[lang]||PT.en).fail;m.className='ft-nl-msg err'}).finally(()=>{if(b)b.disabled=false})});
@@ -981,14 +982,14 @@ document.addEventListener('mousemove',e=>{const z=e.target.closest&&e.target.clo
 document.addEventListener('click',e=>{const l=e.target.closest('[data-lang]');if(l){lang=l.dataset.lang;try{localStorage.setItem('ds-lang',lang)}catch(err){}render(false);return}
   const bn=e.target.closest('.box-nav');if(bn){boxGo(bn.id==='box-next'?1:-1);return}
   const gn=e.target.closest('[data-gn]');if(gn){const rr=$('phr'),it=rr&&rr.querySelector('.phg-item');if(it)rr.scrollBy({left:(it.getBoundingClientRect().width+16)*+gn.dataset.gn,behavior:'smooth'});return}
-  const z=e.target.closest('[data-zoom]');if(z){BOXSET=z.dataset.set?[...document.querySelectorAll(`[data-set="${z.dataset.set}"]`)].map(x=>x.dataset.zoom):[];BOXI=Math.max(0,BOXSET.indexOf(z.dataset.zoom));$('box').classList.toggle('multi',BOXSET.length>1);$('box-img').src=z.dataset.zoom;$('box').showModal();return}
+  const z=e.target.closest('[data-zoom]');if(z){BOXSET=z.dataset.set?[...document.querySelectorAll(`[data-set="${z.dataset.set}"]`)].map(x=>x.dataset.zoom):[];BOXI=Math.max(0,BOXSET.indexOf(z.dataset.zoom));BOXPG=false;$('box').classList.toggle('multi',BOXSET.length>1);$('box-img').src=z.dataset.zoom;boxCount();$('box').showModal();return}
   if(e.target.closest('#box-close')){$('box').close();$('box').classList.remove('zin');return}
   if(e.target.id==='box-img'){$('box').classList.toggle('zin');return}
   const a=e.target.closest('a[data-r],a[href^="#"]');if(a){if(a.dataset.product)form.product=a.dataset.product;if(a.dataset.country){form.country=a.dataset.country;form.msg=T[lang].nw.msg(a.dataset.country)}if(a.dataset.subject!==undefined)form.subject=a.dataset.subject;formState=null;
     $('nav').dataset.open='false';$('menu').setAttribute('aria-expanded','false');if(a.getAttribute('href')===location.hash){e.preventDefault();render(true)}}
   const pg=e.target.closest('[data-pg]');if(pg){pgGo(+pg.dataset.pg);return}
   const pn=e.target.closest('[data-pgnav]');if(pn){pgGo(PGI+ +pn.dataset.pgnav);return}
-  if(e.target.closest('[data-zoom-pg]')){$('box').classList.remove('multi');BOXSET=[];$('box-img').src=PGL[PGI];$('box').showModal();return}
+  if(e.target.closest('[data-zoom-pg]')){BOXSET=PGL.slice();BOXI=PGI;BOXPG=true;$('box').classList.toggle('multi',BOXSET.length>1);$('box-img').src=PGL[PGI];boxCount();$('box').showModal();return}
   const pzb=e.target.closest('[data-pz]');if(pzb){pzF=pzb.dataset.pz;pzApply();return}
   const pzn=e.target.closest('[data-pzn]');if(pzn){const rr=$('pzr'),tt=rr&&rr.querySelector('.pzt:not([hidden])');if(tt)rr.scrollBy({left:(tt.getBoundingClientRect().width+16)*+pzn.dataset.pzn,behavior:'smooth'});return}
   const cc=e.target.closest('[data-cmpc]');if(cc){CMP[+cc.dataset.cmpc]=cc.dataset.m;const bx=$('cmp-box');if(bx){bx.innerHTML=cmpTable();const f=bx.querySelector(`[data-cmpc="${cc.dataset.cmpc}"][data-m="${cc.dataset.m}"]`);if(f)f.focus()}return}
