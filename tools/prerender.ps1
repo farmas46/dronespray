@@ -26,9 +26,9 @@ $server = Start-Job -ArgumentList $dist, $Port -ScriptBlock {
   $l = [Net.HttpListener]::new(); $l.Prefixes.Add("http://localhost:$port/"); $l.Start()
   while ($l.IsListening) {
     $c = $l.GetContext(); $rel = [Uri]::UnescapeDataString($c.Request.Url.AbsolutePath).TrimStart('/')
-    $f = Join-Path $dist $rel
-    if (Test-Path $f -PathType Container) { $f = Join-Path $f 'index.html' }
-    if (-not (Test-Path $f -PathType Leaf)) { $f = Join-Path $dist '404.html' }
+    # Pages (paths ending in "/") always get the current template, never an older prerendered copy.
+    if ($rel -eq '' -or $rel.EndsWith('/')) { $f = Join-Path $dist '404.html' }
+    else { $f = Join-Path $dist $rel; if (-not (Test-Path $f -PathType Leaf)) { $f = Join-Path $dist '404.html' } }
     $b = [IO.File]::ReadAllBytes($f); $ext = [IO.Path]::GetExtension($f).ToLower()
     $c.Response.ContentType = $(if ($mime[$ext]) { $mime[$ext] } else { 'application/octet-stream' })
     $c.Response.OutputStream.Write($b, 0, $b.Length); $c.Response.Close()
