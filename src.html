@@ -499,6 +499,7 @@ footer{background:var(--ink);color:#e8e9e4;border-top:4px solid var(--yellow)}
 .acc-car{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
 .acc-rail{display:flex;gap:24px;overflow-x:auto;scrollbar-width:none;min-width:0}
 .acc-rail::-webkit-scrollbar{display:none}
+@media (max-width:900px){.acc-rail{scroll-snap-type:x mandatory;overscroll-behavior-x:contain}.acc-rail .card{scroll-snap-align:start}}
 .acc-rail .card{flex:0 0 calc((100% - 72px)/4);min-width:0}
 .car-btn{width:46px;height:46px;border:1px solid var(--ink);border-radius:50%;background:var(--sheet);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:background .15s}
 .car-btn:hover{background:var(--yellow);border-color:var(--yellow)}
@@ -913,12 +914,10 @@ function pgGo(n){if(!PGL.length)return;PGI=(n+PGL.length)%PGL.length;const im=$(
 const hsSz=st=>{const p=+((st.match(/width:(\d+)%/)||[])[1]||40);return `min(${p}vw, ${p*7}px)`};return `<div class="hs" role="region" aria-roledescription="carousel" aria-label="DroneSpray">${SLIDES.map((sl,n)=>`<div class="hs-slide ${n===slideIdx?'on':''}" role="img" aria-label="${sl.alt}">${sl.row?`<div class="hs-row">${sl.row.map(m=>`<img class="r-${m}" src="${IMG[m].card}" alt="">`).join('')}</div>`:`<div class="dl-stack">${sl.imgs.map(([m,st])=>`<img src="${IMG[m].card}"${SS(IMG[m].card,hsSz(st))} alt="" style="${st}" fetchpriority="${n===0?'high':'low'}" decoding="async">`).join('')}</div>`}</div>`).join('')}<div class="hs-dots">${SLIDES.map((_,n)=>`<button type="button" data-slide="${n}" aria-label="${n+1} / ${SLIDES.length}" aria-current="${n===slideIdx}"></button>`).join('')}</div></div>`}
 function goSlide(n){const s=document.querySelectorAll('.hs-slide');if(!s.length)return;slideIdx=(n+s.length)%s.length;s.forEach((el,k)=>el.classList.toggle('on',k===slideIdx));document.querySelectorAll('.hs-dots button').forEach((d,k)=>d.setAttribute('aria-current',String(k===slideIdx)))}
 let carTimer=null;
-function carStep(dir){const r=$('acc-rail');if(!r)return;const it=r.querySelector('.card');if(!it)return;const gap=parseFloat(getComputedStyle(r).columnGap)||0,step=it.getBoundingClientRect().width+gap,setW=step*ACC.length;
-  if(dir>0&&r.scrollLeft>=setW-2)r.scrollTo({left:r.scrollLeft-setW,behavior:'instant'});
-  if(dir<0&&r.scrollLeft<step-2)r.scrollTo({left:r.scrollLeft+setW,behavior:'instant'});
-  r.scrollBy({left:dir*step,behavior:'smooth'})}
-function startCar(){clearInterval(carTimer);const c=document.querySelector('.acc-car');if(!c)return;let reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(reduce)return;
-  carTimer=setInterval(()=>{const c=document.querySelector('.acc-car');if(c&&!c.matches(':hover')&&!c.matches(':focus-within'))carStep(1)},2000)}
+function carStep(dir){const r=$('acc-rail');if(!r)return;const it=r.querySelector('.card');if(!it)return;const gap=parseFloat(getComputedStyle(r).columnGap)||0,step=it.getBoundingClientRect().width+gap,n=ACC.length;let i=Math.round(r.scrollLeft/step);if(dir>0&&i>=n){r.scrollTo({left:(i-n)*step,behavior:'instant'});i-=n}if(dir<0&&i<1){r.scrollTo({left:(i+n)*step,behavior:'instant'});i+=n}r.scrollTo({left:(i+dir)*step,behavior:'smooth'})}
+let carHold=0;['touchstart','touchmove','pointerdown','wheel'].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest&&e.target.closest('.acc-rail'))carHold=Date.now()},{passive:true}));
+/* Accessories rail: manual only (swipe, scroll, arrows); no auto-advance. */
+function startCar(){clearInterval(carTimer)}
 function startSlides(){clearInterval(slideTimer);if(!document.querySelector('.hs'))return;let reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(reduce)return;slideTimer=setInterval(()=>{const h=document.querySelector('.hs');if(h&&!h.matches(':hover'))goSlide(slideIdx+1)},3000)}
 function dealers(){const t=T[lang],d=t.dl,v=k=>esc(form[k]||'');
   const f=(id,label,type,req)=>`<div class="field"><label for="${id}">${label}${req?' *':''}</label><input id="${id}" name="${id}" type="${type}" value="${v(id)}" ${req?'required':''}></div>`;
