@@ -4,6 +4,6 @@ window.DS_CONFIG = {
   gaId: "GTM-NRT6LRF2",
   /* Where the contact, dealer and newsletter forms are sent (e.g. a Formspree endpoint "https://formspree.io/f/xxxxxxx").
      Leave "" and the forms open the visitor's email app with the message ready, addressed to formEmail. */
-  formEndpoint: "",
-  formEmail: "info@farma.com.gr"
+  formEndpoint: "https://formspree.io/f/xoeddoqz",
+  formEmail: "dronespray@outlook.com.gr"
 };
