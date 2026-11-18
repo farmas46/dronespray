@@ -9,7 +9,7 @@ $dist = Join-Path $root 'dist'
 $SITE = 'https://www.dronespray-premixingsystems.com'
 $langs = 'el', 'en', 'es', 'it', 'fr', 'de'
 $views = @('home', 'ds600', 'ds500', 'ds420', 'ds400', 'ds300', 'ds200', 'ds200c', 'ds110', 'pm20', 'accessories', 'dealers', 'network', 'contact', 'privacy') +
-         @('pm2637', 'pm2545', 'fm1', 'pdr', 'reel', 'panel', 'led', 'nozzle', 'lidmix', 'dpump', 'bracket', 'wsp', 'lid', 'herbkit', 'pnozzle', 'rinse' | ForEach-Object { "acc-$_" })
+         @('pm2637', 'pm2545', 'fm1', 'pdr', 'reel', 'panel', 'led', 'nozzle', 'lidmix', 'dpump', 'bracket', 'wsp', 'lid', 'herbkit', 'pnozzle', 'rinse', 'fillkit' | ForEach-Object { "acc-$_" })
 function PathOf([string]$v, [string]$l) { (($(if ($l -eq 'el') { '' } else { "/$l" })) + $(if ($v -eq 'home') { '' } else { "/$v" })) + '/' }
 $edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $edge) { throw 'Microsoft Edge not found' }
