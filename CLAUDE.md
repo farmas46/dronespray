@@ -59,6 +59,9 @@ Optionally also run `python tools/build.py`.
   - The comparison uses `M` and `SH` in `cmpTable`.
   - New-model badge: `NEWM=['ds400']`.
 - Accessories: `ACC` array.
+- Spray calculator on the home page (`calcSection()`, below the models): area × dose → total mix, drone refills, refill time (drone tank ÷ model flow; the 80 L/min flow is a real-world figure), recommended model (smallest available DS whose tank holds the whole mix, else DS600) in a yellow card.
+  - Greek uses στρέμματα and L/στρέμμα; the other languages use ha and L/ha. Texts in `CALCT` (all 7 languages).
+  - `DRONES`: DJI / XAG / EAVision spray-tank volumes from the makers' official spec pages (ag.dji.com, xa.com, eavision.com), checked Nov 2026. No maker photos (copyright).
 - `SS(path, sizes)` adds `srcset`. It is empty in src and filled by `prod.py`. Every new `<img>` template should use `${SS(x,'sizes')}`, plus `loading="lazy"` when below the fold.
 - Production block, near the end of the script:
   - `window.DS_CONFIG` (from `config.js`).
