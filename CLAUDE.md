@@ -2,6 +2,17 @@
 
 Static, multilingual catalogue site for DroneSpray pre-mixing systems for agricultural drones. The maker is FARMA Κυράτσας, Larissa. The owner talks in Greek; answer in Greek.
 
+## Working with the owner (read first, every session, every computer)
+
+- Address the owner as **KING**. Answer in Greek.
+- The owner works from more than one computer and more than one Claude conversation. GitHub (`farmas46/dronespray`, branch `main`) is the only shared copy, so:
+  - **Before any change:** `git pull` (or fetch and compare with `origin/main`). Never start from an old local copy.
+  - **After every change the owner asks for:** commit and push right away, so the other computer sees it.
+  - If the push is rejected because GitHub has newer commits: pull them first; never force-push and never overwrite the other work. Ask the owner if the two changes overlap.
+- Every text change goes into **all site languages** (currently el, en, es, it, fr, de, ro).
+- Bigger visual changes: show a **preview first** (2–3 options when it is a design choice) and push only after the owner approves.
+- On Windows with a long folder path, set `git config core.longpaths true` or fetch/push fails with "Filename too long".
+
 ## Layout
 
 - `src.html`: the whole site, one file. **Always edit this file.** It has one `<style>` block, the static header/footer markup and one `<script>` block.
