@@ -70,9 +70,13 @@ Optionally also run `python tools/build.py`.
   - The comparison uses `M` and `SH` in `cmpTable`.
   - New-model badge: `NEWM=['ds400']`.
 - Accessories: `ACC` array.
-- Spray calculator on the home page (`calcSection()`, below the models): area × dose → total mix, drone refills, refill time (drone tank ÷ model flow; the 80 L/min flow is a real-world figure), drone refills per DS fill, recommended model (smallest available DS whose tank holds the whole mix, else DS600; DS110 only for drones with tanks up to 30 L because of its 19 L/min pump) in a yellow card.
+- Spray calculator on the home page, below the models (owner's approved design, 2026-11-19: dark card, sliders, brand tabs, yellow model card with a slanted dark panel, tappable model bars).
+  - `calcSec()` builds it, `calcRun()` (called in `render()`) fills it; state in `CS`; clicks and inputs handled by delegated listeners.
+  - Area × dose → total mix, drone refills, drone fill time (drone tank ÷ model flow; 80 L/min is the real field flow, DS110 19 L/min).
+  - Recommends the smallest DS that holds the whole job in one fill, else DS600; DS110 only for drones with tanks up to 30 L. The bars of all models can be tapped to choose another one.
+  - The quote button opens the contact form with the model selected and the calculation in the message (`form.msg`).
   - Greek uses στρέμματα and L/στρέμμα; the other languages use ha and L/ha. Texts in `CALCT` (all 7 languages).
-  - `DRONES`: DJI / XAG / EAVision spray-tank volumes from the makers' official spec pages (ag.dji.com, xa.com, eavision.com), checked Nov 2026. No maker photos (copyright).
+  - `CALCM`: DS models (tank, flow, weight, alternative with the same tank). `CALCD`: DJI / EAVision / XAG spray-tank volumes from the makers' official spec pages (ag.dji.com, xa.com, eavision.com), checked Nov 2026. No maker photos (copyright).
 - `SS(path, sizes)` adds `srcset`. It is empty in src and filled by `prod.py`. Every new `<img>` template should use `${SS(x,'sizes')}`, plus `loading="lazy"` when below the fold.
 - Production block, near the end of the script:
   - `window.DS_CONFIG` (from `config.js`).

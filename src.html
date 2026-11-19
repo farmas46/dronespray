@@ -779,38 +779,69 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .lg-links{display:flex;flex-wrap:wrap;gap:6px 20px}
 @media (max-width:560px){.ck{left:12px;right:12px;bottom:12px;max-width:none}.ck-btns .btn{flex:1}}
 
-/* Spray calculator */
-.calc-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;align-items:start}
-.calc-in{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.calc-lbl{font-family:var(--display);font-weight:600;font-size:.98rem;letter-spacing:.08em;text-transform:uppercase}
-.calc .field[hidden]{display:none}
-.calc-out{display:flex;flex-direction:column;gap:20px}
-.calc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0;border-top:2px solid var(--ink);padding-top:16px}
-.calc-stats div{display:flex;flex-direction:column-reverse;gap:6px;min-width:0}
-.calc-stats dt{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.calc-stats dd{margin:0;font-family:var(--mname);font-weight:300;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.05;color:var(--ink)}
-@media (max-width:860px){.calc-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
-@media (max-width:520px){.calc-in{grid-template-columns:minmax(0,1fr)}.calc-stats{grid-template-columns:minmax(0,1fr);gap:12px}.calc-stats div{flex-direction:row-reverse;justify-content:space-between;align-items:baseline}}
-
-.calc-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:12px;flex-wrap:wrap}
-.calc-tabs button{all:unset;cursor:pointer;padding:10px 16px;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.04em;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-1px}
-.calc-tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--yellow)}
-.calc-tabs button:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
-.calc-pills{margin-top:0}
-.calc-pills button{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.2;padding:9px 16px}
-.calc-pills button small{font-size:.75rem;opacity:.7;margin-top:2px}
-
-.calc-rec{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:end;background:var(--yellow);color:var(--on-yellow);border-radius:16px;padding:0 24px 24px;margin-top:56px}
-.calc-pic{display:flex;justify-content:center;margin-top:-56px}
-.calc-pic img{max-height:300px;width:auto;max-width:100%;filter:drop-shadow(0 18px 16px rgba(0,0,0,.28))}
-.calc-rec-t{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding-top:24px;min-width:0}
-.calc-rec-eye{font-family:var(--display);font-weight:700;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase}
-.calc-rec-t h3{font-family:var(--mname);font-weight:300;text-transform:none;font-size:clamp(2.6rem,4.6vw,3.8rem);line-height:.95;letter-spacing:-.02em}
-.calc-rec-t h3 a{color:inherit;text-decoration:none}
-.calc-rec-t p{margin:0}
-.calc-rec-t .btn{background:var(--on-yellow);border-color:var(--on-yellow);color:#fff;margin-top:6px}
-.calc-rec-t .btn:hover{background:#000;border-color:#000;color:#fff}
-@media (max-width:600px){.calc-rec{grid-template-columns:minmax(0,1fr);gap:4px;padding:0 18px 20px;margin-top:44px}.calc-pic{margin-top:-44px}.calc-pic img{max-height:200px}.calc-rec-t{padding-top:4px}.calc-rec-t h3{font-size:2.6rem}.calc-rec-t .btn{width:100%}}
+/* spray calculator (home) */
+.calc{background:var(--ink);color:#fff;border-radius:18px;padding:36px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:36px}
+.calc .eyebrow{color:var(--yellow)}
+.calc h2{font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.12;margin:8px 0 10px;color:#fff}
+.calc-sub{color:#c9ccc4;margin:0 0 24px}
+.calc-f{margin-bottom:20px}
+.calc-f>label,.calc-l{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#d8dbd3;margin:0 0 8px}
+.calc-f output{font-family:var(--mname);font-weight:300;font-size:1.5rem;letter-spacing:0;text-transform:none;color:#fff}
+.calc-f output small{font-size:.85rem;color:#b9bdb4;margin-left:4px}
+.calc input[type=range]{width:100%;accent-color:var(--yellow);height:28px;margin:0}
+.calc-br{display:flex;flex-wrap:wrap;box-shadow:inset 0 -1px 0 #4a4f47;margin-bottom:12px}
+.calc-br button{font:700 .86rem var(--display);color:#b9bdb4;background:none;border:0;border-bottom:2.5px solid transparent;padding:6px 12px 8px;cursor:pointer;white-space:nowrap}
+.calc-br button[aria-pressed=true]{color:#fff;border-bottom-color:var(--yellow)}
+.calc-ds{display:flex;flex-wrap:wrap;gap:7px}
+.calc-ds[hidden],.calc-cu[hidden]{display:none}
+.calc-ds button{font:600 .86rem var(--body);color:#fff;background:transparent;border:1.5px solid #4a4f47;border-radius:999px;padding:8px 14px;cursor:pointer}
+.calc-ds button small{color:#b9bdb4;font-weight:400;margin-left:5px}
+.calc-ds button[aria-pressed=true]{background:var(--yellow);border-color:var(--yellow);color:var(--on-yellow)}
+.calc-ds button[aria-pressed=true] small{color:#4b3a00}
+.calc-cu{display:flex;align-items:center;gap:8px;font-size:.92rem;color:#c9ccc4}
+.calc-cu input{width:84px;font:inherit;color:var(--ink);border-radius:10px;border:0;padding:7px 10px}
+.calc-res{background:#272b26;border-radius:16px;padding:22px;display:grid;gap:18px;align-content:start}
+.calc-st{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.calc-st>div{background:var(--ink);border-radius:12px;padding:12px}
+.calc-st span{display:block;font-size:.76rem;color:#b9bdb4;line-height:1.3}
+.calc-st strong{display:block;font-family:var(--mname);font-weight:300;font-size:1.75rem;line-height:1.15;margin-top:4px}
+.calc-st strong small{font-size:.8rem;color:#b9bdb4;margin-left:3px}
+.calc-rec{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 168px;gap:8px;align-items:center;background:var(--yellow);color:var(--on-yellow);border-radius:14px;padding:20px 0 20px 22px}
+.calc-rec::before{content:"";position:absolute;right:-52px;top:0;bottom:0;width:205px;background:var(--ink);transform:skewX(-14deg)}
+.calc-rec>*{position:relative}
+.calc-k{font-family:var(--display);font-weight:800;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(22,23,15,.62)}
+.calc-n{font-family:var(--mname);font-weight:300;font-size:2.5rem;line-height:1.05;margin:2px 0 6px}
+.calc-rec p{margin:0;font-size:.92rem;color:#3a3000}
+.calc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.calc-chips span{font:700 .74rem var(--display);padding:4px 10px;border-radius:999px;background:rgba(22,23,15,.1)}
+.calc-ph{display:grid;place-items:center}
+.calc-ph img{width:178px;height:178px;object-fit:contain;margin-left:-14px;filter:drop-shadow(0 14px 12px rgba(0,0,0,.5));transition:opacity .18s,transform .3s cubic-bezier(.3,.7,.2,1)}
+.calc-ph img.swap{opacity:0;transform:translateY(10px) scale(.96)}
+.calc-bars{display:grid;gap:4px}
+.calc-bar{all:unset;box-sizing:border-box;display:grid;grid-template-columns:86px 1fr 104px;gap:10px;align-items:center;font-size:.86rem;color:#b9bdb4;cursor:pointer;border-radius:8px;padding:4px 6px;margin:0 -6px;transition:background .2s}
+.calc-bar:hover{background:rgba(255,255,255,.05)}
+.calc-bar:focus-visible{outline:2px solid var(--yellow)}
+.calc-bar b{font-family:var(--mname);font-weight:400;color:#fff;font-size:.95rem}
+.calc-bar .tr{position:relative;height:10px;border-radius:999px;overflow:hidden}
+.calc-bar .tr s{position:absolute;inset:0 auto 0 0;border-radius:999px;background:#3a3e38}
+.calc-bar .tr i{position:absolute;inset:0 auto 0 0;border-radius:999px;background:#7d8278;transition:width .6s cubic-bezier(.3,.7,.2,1)}
+.calc-bar .nb{text-align:right}
+.calc-bar.on b,.calc-bar.on .nb{color:var(--yellow)}
+.calc-bar.on .tr i{background:var(--yellow)}
+.calc-bar.pick{background:rgba(246,183,11,.1)}
+.calc-bar.off{cursor:default;opacity:.45}.calc-bar.off:hover{background:none}
+.calc-cta{width:100%}
+.calc-note{font-size:.8rem;color:#9ea397;margin:0}
+@media (max-width:860px){
+  .calc{grid-template-columns:minmax(0,1fr);padding:24px 16px;gap:24px}
+  .calc-res{padding:16px}
+  .calc-f output{font-size:1.25rem}
+  .calc-st strong{font-size:1.35rem}
+  .calc-rec{grid-template-columns:1fr 118px;padding-left:16px}.calc-rec::before{width:150px;right:-44px}
+  .calc-ph img{width:130px;height:140px}.calc-n{font-size:2rem}
+  .calc-bar{grid-template-columns:70px 1fr 92px;font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){.calc-ph img,.calc-bar .tr i{transition:none}}
 </style>
 
 <div class="masthead"><div class="wrap">
@@ -941,38 +972,71 @@ const PRIV={"el": {"title": "Πολιτική απορρήτου", "upd": "Τε�
 const PRIVL={"el": "Πολιτική απορρήτου", "en": "Privacy policy", "es": "Política de privacidad", "it": "Informativa sulla privacy", "fr": "Politique de confidentialité"},PRIVN={"es": "Esta política está disponible en griego y en inglés.", "it": "Questa informativa è disponibile in greco e in inglese.", "fr": "Cette politique est disponible en grec et en anglais."},FORMN={"el": "Τα στοιχεία σας χρησιμοποιούνται μόνο για να απαντήσουμε στο αίτημά σας.", "en": "Your details are used only to answer your request.", "es": "Sus datos se usan solo para responder a su solicitud.", "it": "I vostri dati sono usati solo per rispondere alla richiesta.", "fr": "Vos données servent uniquement à répondre à votre demande.", "de": "Ihre Daten werden nur zur Beantwortung Ihrer Anfrage verwendet.", "ro": "Datele dumneavoastră sunt folosite numai pentru a răspunde solicitării."};
 const privLink=()=>`<a class="priv-link" href="#privacy">${PRIVL[lang]}</a>`;
 function privacy(){const d=PRIV[lang]||PRIV.en;return `<section class="band priv"><div class="wrap"><div class="priv-doc"><span class="eyebrow">DroneSpray</span><h1>${d.title}</h1><p class="priv-upd">${d.upd}</p>${PRIVN[lang]?`<p class="priv-note">${PRIVN[lang]}</p>`:''}<p class="priv-intro">${d.intro}</p>${d.s.map(([h,ps],i)=>`<section class="priv-s"><h2><span>${String(i+1).padStart(2,'0')}</span>${h}</h2>${ps.length>1?`<ul class="ticks">${ps.map(x=>`<li>${x}</li>`).join('')}</ul>`:`<p>${ps[0]}</p>`}</section>`).join('')}</div></div></section>`}
-/* Spray calculator (home page): area × dose → total mix, drone fills, drone fill time, recommended model.
-   Greek uses στρέμματα and L/στρέμμα; the other languages use hectares and L/ha. */
-/* Spray tank volumes from the makers' official spec pages (ag.dji.com, xa.com, eavision.com), checked Nov 2026. */
-const DRONES=[['DJI',[['t100','T100',100],['t70p','T70P',70],['t55','T55',50],['t50','T50',40],['t40','T40',40],['t30','T30',30],['t25p','T25P',20],['t25','T25',20],['t20p','T20P',20],['t10','T10',8]]],
-  ['XAG',[['p150max','P150 Max',80],['p150','P150',60],['p120pro','P120 Pro',50],['p100pro','P100 Pro',50],['p60','P60',30],['p40','P40',20],['v40','V40',16]]],
-  ['EAVision',[['j150','EA-J150',70],['j100','EA-J100',45],['j70','EA-J70',35],['30xp','EA-30XP',30],['30x','EA-30X',30]]]];
-const DRONE=k=>{for(const [,ms] of DRONES){const d=ms.find(m=>m[0]===k);if(d)return d}return null};
+/* Spray calculator (home page): mix needed, drone refills and the DroneSpray that fits. Texts in all 6 languages. */
 const CALCT={
-el:{eye:'Υπολογιστής ψεκασμού',h:'Πόσο μίγμα χρειάζεστε;',p:'Βάλτε στρέμματα, δόση και το drone σας. Θα δείτε το συνολικό μίγμα, τους ανεφοδιασμούς του drone και το κατάλληλο DroneSpray.',area:'Στρέμματα',dose:'Δόση ανά στρέμμα (L)',drone:'Drone',other:'Άλλο',tank:'Δεξαμενή drone (L)',mix:'Συνολικό μίγμα',fills:'Ανεφοδιασμοί ανά γέμισμα DS',fillT:'Χρόνος ανεφοδιασμού',sec:'δευτ.',rec:'Προτεινόμενο μοντέλο',quote:n=>`Ζητήστε προσφορά για ${n}`,per:(n,d,k)=>`Με ένα γέμισμα, το ${n} ανεφοδιάζει το ${d} ${k} ${k===1?'φορά':'φορές'}.`,dw:'drone',a:100,d:2},
-en:{eye:'Spray calculator',h:'How much mix do you need?',p:'Enter your area, dose and drone. You will see the total mix, the number of drone refills and the right DroneSpray.',area:'Area (ha)',dose:'Dose per hectare (L/ha)',drone:'Drone',other:'Other',tank:'Drone tank (L)',mix:'Total mix',fills:'Drone refills per DS fill',fillT:'Refill time',sec:'s',rec:'Recommended model',quote:n=>`Request a quote for ${n}`,per:(n,d,k)=>`One fill of the ${n} refills the ${d} ${k} ${k===1?'time':'times'}.`,dw:'drone',a:10,d:20},
-es:{eye:'Calculadora de pulverización',h:'¿Cuánta mezcla necesita?',p:'Introduzca la superficie, la dosis y su dron. Verá la mezcla total, los repostajes del dron y el DroneSpray adecuado.',area:'Superficie (ha)',dose:'Dosis por hectárea (L/ha)',drone:'Dron',other:'Otro',tank:'Depósito del dron (L)',mix:'Mezcla total',fills:'Repostajes por llenado del DS',fillT:'Tiempo de repostaje',sec:'s',rec:'Modelo recomendado',quote:n=>`Solicitar presupuesto para ${n}`,per:(n,d,k)=>`Un llenado del ${n} recarga el ${d} ${k} ${k===1?'vez':'veces'}.`,dw:'dron',a:10,d:20},
-it:{eye:'Calcolatore di irrorazione',h:'Quanta miscela vi serve?',p:'Inserite superficie, dose e drone. Vedrete la miscela totale, i rifornimenti del drone e il DroneSpray adatto.',area:'Superficie (ha)',dose:'Dose per ettaro (L/ha)',drone:'Drone',other:'Altro',tank:'Serbatoio del drone (L)',mix:'Miscela totale',fills:'Rifornimenti per riempimento DS',fillT:'Tempo di rifornimento',sec:'s',rec:'Modello consigliato',quote:n=>`Richiedi un preventivo per ${n}`,per:(n,d,k)=>`Un riempimento del ${n} rifornisce il ${d} ${k} ${k===1?'volta':'volte'}.`,dw:'drone',a:10,d:20},
-fr:{eye:'Calculateur de pulvérisation',h:'De combien de bouillie avez-vous besoin ?',p:'Indiquez la surface, la dose et votre drone. Vous verrez la bouillie totale, le nombre de ravitaillements du drone et le DroneSpray adapté.',area:'Surface (ha)',dose:'Dose par hectare (L/ha)',drone:'Drone',other:'Autre',tank:'Réservoir du drone (L)',mix:'Bouillie totale',fills:'Ravitaillements par plein du DS',fillT:'Temps de ravitaillement',sec:'s',rec:'Modèle recommandé',quote:n=>`Demander un devis pour le ${n}`,per:(n,d,k)=>`Un plein du ${n} ravitaille le ${d} ${k} fois.`,dw:'drone',a:10,d:20},
-de:{eye:'Sprührechner',h:'Wie viel Spritzbrühe brauchen Sie?',p:'Geben Sie Fläche, Aufwandmenge und Ihre Drohne ein. Sie sehen die gesamte Spritzbrühe, die Zahl der Betankungen der Drohne und das passende DroneSpray.',area:'Fläche (ha)',dose:'Aufwandmenge pro Hektar (L/ha)',drone:'Drohne',other:'Andere',tank:'Drohnentank (L)',mix:'Spritzbrühe gesamt',fills:'Betankungen pro DS-Füllung',fillT:'Betankungszeit',sec:'s',rec:'Empfohlenes Modell',quote:n=>`Angebot für ${n} anfordern`,per:(n,d,k)=>`Eine Füllung des ${n} betankt die ${d} ${k===1?'einmal':k+'-mal'}.`,dw:'Drohne',a:10,d:20},
-ro:{eye:'Calculator de stropire',h:'De câtă soluție aveți nevoie?',p:'Introduceți suprafața, doza și drona. Veți vedea soluția totală, numărul de realimentări ale dronei și DroneSpray-ul potrivit.',area:'Suprafață (ha)',dose:'Doză la hectar (L/ha)',drone:'Dronă',other:'Alta',tank:'Rezervorul dronei (L)',mix:'Soluție totală',fills:'Realimentări per umplere DS',fillT:'Timp de realimentare',sec:'s',rec:'Model recomandat',quote:n=>`Solicitați o ofertă pentru ${n}`,per:(n,d,k)=>`O umplere a ${n} realimentează ${d} ${k===1?'o dată':(k>=20?'de '+k+' ori':k+' ori')}.`,dw:'drona',a:10,d:20}};
-let CALC={l:null,a:0,d:0,drone:'t50',tank:30};
-const CALCM=()=>['ds110','ds200','ds200c','ds300','ds400','ds420','ds500','ds600'].filter(id=>!NAM.includes(id)&&SPEC[id]).sort((x,y)=>SPEC[x].cap-SPEC[y].cap);
-function calcNum(v){return Math.round(v*10)/10}
-function calcOut(){const c=CALCT[lang]||CALCT.en,f=n=>n.toLocaleString(lang),total=calcNum(CALC.a*CALC.d);const dr=DRONE(CALC.drone),tank=CALC.drone==='other'?CALC.tank:(dr?dr[2]:0);
-  if(!(total>0)||!(tank>0))return `<div class="calc-stats"><div><dt>${c.mix}</dt><dd>—</dd></div><div><dt>${c.fills}</dt><dd>—</dd></div><div><dt>${c.fillT}</dt><dd>—</dd></div></div>`;
-  const ms=CALCM().filter(m=>!(m==='ds110'&&tank>30)),id=ms.find(m=>SPEC[m].cap>=total)||ms[ms.length-1],s=SPEC[id],flow=s.flow||80,i=IMG[id],sec=Math.round(Math.min(tank,s.cap)/flow*60),per=Math.ceil(Math.min(total,s.cap)/tank),dn=CALC.drone==='other'?c.dw:(()=>{const b=DRONES.find(([,ms])=>ms.some(m=>m[0]===CALC.drone));return b[0]+' '+dr[1]})();
-  return `<div class="calc-stats"><div><dt>${c.mix}</dt><dd>${f(total)} L</dd></div><div><dt>${c.fills}</dt><dd>${f(per)}</dd></div><div><dt>${c.fillT}</dt><dd>${f(sec)} ${c.sec}</dd></div></div>
-  <div class="calc-rec"><a href="#${id}" class="calc-pic" tabindex="-1"><img src="${i.full||i.card}"${SS(i.full||i.card,'280px')} alt="DroneSpray ${FULL[id]}" decoding="async"></a><div class="calc-rec-t"><span class="calc-rec-eye">${c.rec}</span><h3><a href="#${id}">${FULL[id]}</a></h3><p>${s.cap} L · ${flow} L/min</p><p class="calc-more">${c.per(FULL[id],dn,per)}</p><a class="btn" href="#contact" data-product="${id}" data-subject="0">${c.quote(FULL[id])} →</a></div></div>`}
-function calcSection(){const c=CALCT[lang]||CALCT.en;if(CALC.l!==lang){CALC.l=lang;CALC.a=c.a;CALC.d=c.d}
-  return `<section class="band white calc" id="calc"><div class="wrap"><div class="head"><span class="eyebrow">${c.eye}</span><h2>${c.h}</h2><p>${c.p}</p></div><div class="calc-grid"><div class="calc-in"><div class="field"><label for="calc-a">${c.area}</label><input id="calc-a" type="number" inputmode="decimal" min="0" step="any" value="${CALC.a}"></div><div class="field"><label for="calc-d">${c.dose}</label><input id="calc-d" type="number" inputmode="decimal" min="0" step="any" value="${CALC.d}"></div>${(()=>{const br=CALC.drone==='other'?'other':(DRONES.find(([,ms])=>ms.some(m=>m[0]===CALC.drone))||DRONES[0])[0];const ms=(DRONES.find(x=>x[0]===br)||[,[]])[1];return `<div class="field full"><span class="calc-lbl" id="calc-bl">${c.drone}</span><div class="calc-tabs" role="tablist" aria-labelledby="calc-bl">${DRONES.map(([b])=>`<button type="button" role="tab" data-brand="${b}" aria-selected="${b===br}">${b}</button>`).join('')}<button type="button" role="tab" data-brand="other" aria-selected="${br==='other'}">${c.other}</button></div>${ms.length?`<div class="pzc calc-pills">${ms.map(([k,n,v])=>`<button type="button" data-drone="${k}" aria-pressed="${k===CALC.drone}">${n}<small>${v} L</small></button>`).join('')}</div>`:''}</div>`})()}<div class="field full" id="calc-tw"${CALC.drone==='other'?'':' hidden'}><label for="calc-t">${c.tank}</label><input id="calc-t" type="number" inputmode="decimal" min="0" step="any" value="${CALC.tank}"></div></div><div class="calc-out" id="calc-out" aria-live="polite">${calcOut()}</div></div></div></section>`}
-function calcRefresh(){const o=$('calc-out');if(o){o.innerHTML=calcOut();if(typeof fixLinks==='function')fixLinks()}}
-function calcRerender(){const el=$('calc');if(!el)return;el.outerHTML=calcSection();if(typeof fixLinks==='function')fixLinks()}
-document.addEventListener('click',e=>{if(!e.target.closest)return;const b=e.target.closest('#calc [data-brand]');if(b){const br=b.dataset.brand;if(br==='other')CALC.drone='other';else{const ms=DRONES.find(x=>x[0]===br)[1];if(!ms.some(m=>m[0]===CALC.drone))CALC.drone=ms[0][0]}calcRerender();return}const d=e.target.closest('#calc [data-drone]');if(d){CALC.drone=d.dataset.drone;calcRerender()}});
-document.addEventListener('input',e=>{const t=e.target;if(!t.closest||!t.closest('#calc'))return;const v=parseFloat(String(t.value).replace(',','.'));const n=isFinite(v)&&v>0?v:0;if(t.id==='calc-a')CALC.a=n;else if(t.id==='calc-d')CALC.d=n;else if(t.id==='calc-t')CALC.tank=n;else return;calcRefresh()});
+el:{eye:'Υπολογιστής ψεκασμού',h:'Πόσο μίγμα χρειάζεστε για τη δουλειά σας;',p:'Βάλτε την έκταση, τη δόση και το drone σας. Σας λέμε πόσα γεμίσματα θα κάνετε και ποιο DroneSpray ταιριάζει.',area:'Έκταση',areaU:'στρέμματα',dose:'Δόση ψεκαστικού',doseU:'L / στρέμμα',drone:'Drone',other:'Άλλο drone',tank:'Δεξαμενή drone',tot:'Συνολικό μίγμα',ref:'Γεμίσματα drone',time:'Γέμισμα drone σε',sec:'δευτ.',min:'λεπτά',rec:'Σας προτείνουμε',mine:'Η επιλογή σας',one:(t,c)=>`Όλο το μίγμα (${t} L) σε ένα γέμισμα της δεξαμενής των ${c} L.`,alt:'Εναλλακτικά: ',many:(b,c,big)=>(big?'Η μεγαλύτερη δεξαμενή μας: όλη':'Όλη')+` η δουλειά σε ${b} γεμίσματα των ${c} L.`,all:'Όλα τα μοντέλα · πατήστε για να διαλέξετε',small:'μικρά drone',f1:'1 γέμισμα',fN:n=>n+' γεμίσματα',cta:n=>`Ζητήστε προσφορά για ${n}`,note:'Υπολογισμός με παροχή 80 L/min στο χωράφι (DS110: 19 L/min). Δεξαμενές drone από τα επίσημα στοιχεία των κατασκευαστών.',cTank:'Δεξαμενή',cFlow:'Παροχή',cKg:'Βάρος',cPow:'Τροφοδοσία',msg:(a,d,dr,t,r,m)=>`Υπολογιστής ψεκασμού: ${a}, ${d}, drone ${dr}. Συνολικό μίγμα ${t} L, ${r} γεμίσματα drone. Μοντέλο: ${m}.`},
+en:{eye:'Spray calculator',h:'How much mix does your job need?',p:'Enter the area, the rate and your drone. We tell you how many refills it takes and which DroneSpray fits.',area:'Area',areaU:'ha',dose:'Application rate',doseU:'L / ha',drone:'Drone',other:'Other drone',tank:'Drone tank',tot:'Total mix',ref:'Drone refills',time:'Drone filled in',sec:'s',min:'min',rec:'We recommend',mine:'Your choice',one:(t,c)=>`All the mix (${t} L) in a single fill of the ${c} L tank.`,alt:'Alternative: ',many:(b,c,big)=>(big?'Our largest tank: the whole job':'The whole job')+` in ${b} fills of ${c} L.`,all:'All models · tap to choose',small:'small drones',f1:'1 fill',fN:n=>n+' fills',cta:n=>`Request a quote for ${n}`,note:'Calculated with 80 L/min in the field (DS110: 19 L/min). Drone tank sizes from the manufacturers’ official specifications.',cTank:'Tank',cFlow:'Flow',cKg:'Weight',cPow:'Power',msg:(a,d,dr,t,r,m)=>`Spray calculator: ${a}, ${d}, drone ${dr}. Total mix ${t} L, ${r} drone refills. Model: ${m}.`},
+es:{eye:'Calculadora de pulverización',h:'¿Cuánta mezcla necesita su trabajo?',p:'Introduzca la superficie, la dosis y su dron. Le decimos cuántas recargas necesita y qué DroneSpray le conviene.',area:'Superficie',areaU:'ha',dose:'Dosis',doseU:'L / ha',drone:'Dron',other:'Otro dron',tank:'Depósito del dron',tot:'Mezcla total',ref:'Recargas del dron',time:'Dron lleno en',sec:'s',min:'min',rec:'Le recomendamos',mine:'Su elección',one:(t,c)=>`Toda la mezcla (${t} L) en un solo llenado del depósito de ${c} L.`,alt:'Alternativa: ',many:(b,c,big)=>(big?'Nuestro depósito más grande: todo el trabajo':'Todo el trabajo')+` en ${b} llenados de ${c} L.`,all:'Todos los modelos · toque para elegir',small:'drones pequeños',f1:'1 llenado',fN:n=>n+' llenados',cta:n=>`Solicite presupuesto para ${n}`,note:'Cálculo con 80 L/min en el campo (DS110: 19 L/min). Depósitos de los drones según las especificaciones oficiales de los fabricantes.',cTank:'Depósito',cFlow:'Caudal',cKg:'Peso',cPow:'Alimentación',msg:(a,d,dr,t,r,m)=>`Calculadora de pulverización: ${a}, ${d}, dron ${dr}. Mezcla total ${t} L, ${r} recargas del dron. Modelo: ${m}.`},
+it:{eye:'Calcolatore di irrorazione',h:'Quanta miscela serve per il vostro lavoro?',p:'Inserite superficie, dose e drone. Vi diciamo quanti rifornimenti servono e quale DroneSpray fa per voi.',area:'Superficie',areaU:'ha',dose:'Dose',doseU:'L / ha',drone:'Drone',other:'Altro drone',tank:'Serbatoio del drone',tot:'Miscela totale',ref:'Rifornimenti drone',time:'Drone pieno in',sec:'s',min:'min',rec:'Vi consigliamo',mine:'La vostra scelta',one:(t,c)=>`Tutta la miscela (${t} L) con un solo riempimento del serbatoio da ${c} L.`,alt:'In alternativa: ',many:(b,c,big)=>(big?'Il nostro serbatoio più grande: tutto il lavoro':'Tutto il lavoro')+` in ${b} riempimenti da ${c} L.`,all:'Tutti i modelli · toccate per scegliere',small:'droni piccoli',f1:'1 riempimento',fN:n=>n+' riempimenti',cta:n=>`Richiedete un preventivo per ${n}`,note:'Calcolo con 80 L/min in campo (DS110: 19 L/min). Serbatoi dei droni dalle specifiche ufficiali dei produttori.',cTank:'Serbatoio',cFlow:'Portata',cKg:'Peso',cPow:'Alimentazione',msg:(a,d,dr,t,r,m)=>`Calcolatore di irrorazione: ${a}, ${d}, drone ${dr}. Miscela totale ${t} L, ${r} rifornimenti drone. Modello: ${m}.`},
+fr:{eye:'Calculateur de pulvérisation',h:'Combien de bouillie pour votre chantier ?',p:'Indiquez la surface, la dose et votre drone. Nous vous disons combien de remplissages il faut et quel DroneSpray convient.',area:'Surface',areaU:'ha',dose:'Dose',doseU:'L / ha',drone:'Drone',other:'Autre drone',tank:'Cuve du drone',tot:'Bouillie totale',ref:'Remplissages du drone',time:'Drone rempli en',sec:'s',min:'min',rec:'Nous recommandons',mine:'Votre choix',one:(t,c)=>`Toute la bouillie (${t} L) en un seul remplissage de la cuve de ${c} L.`,alt:'Alternative : ',many:(b,c,big)=>(big?'Notre plus grande cuve : tout le chantier':'Tout le chantier')+` en ${b} remplissages de ${c} L.`,all:'Tous les modèles · touchez pour choisir',small:'petits drones',f1:'1 remplissage',fN:n=>n+' remplissages',cta:n=>`Demander un devis pour ${n}`,note:'Calcul avec 80 L/min au champ (DS110 : 19 L/min). Cuves des drones selon les fiches officielles des fabricants.',cTank:'Cuve',cFlow:'Débit',cKg:'Poids',cPow:'Alimentation',msg:(a,d,dr,t,r,m)=>`Calculateur de pulvérisation : ${a}, ${d}, drone ${dr}. Bouillie totale ${t} L, ${r} remplissages du drone. Modèle : ${m}.`},
+de:{eye:'Spritzrechner',h:'Wie viel Spritzbrühe braucht Ihr Einsatz?',p:'Geben Sie Fläche, Aufwandmenge und Drohne ein. Wir sagen Ihnen, wie oft Sie nachfüllen und welches DroneSpray passt.',area:'Fläche',areaU:'ha',dose:'Aufwandmenge',doseU:'L / ha',drone:'Drohne',other:'Andere Drohne',tank:'Drohnentank',tot:'Brühe gesamt',ref:'Drohnen-Füllungen',time:'Drohne gefüllt in',sec:'s',min:'min',rec:'Unsere Empfehlung',mine:'Ihre Wahl',one:(t,c)=>`Die gesamte Brühe (${t} L) mit einer Füllung des ${c}-L-Tanks.`,alt:'Alternativ: ',many:(b,c,big)=>(big?'Unser größter Tank: der ganze Einsatz':'Der ganze Einsatz')+` in ${b} Füllungen à ${c} L.`,all:'Alle Modelle · zum Auswählen tippen',small:'kleine Drohnen',f1:'1 Füllung',fN:n=>n+' Füllungen',cta:n=>`Angebot für ${n} anfordern`,note:'Berechnet mit 80 L/min im Feld (DS110: 19 L/min). Drohnentanks laut offiziellen Herstellerangaben.',cTank:'Tank',cFlow:'Durchfluss',cKg:'Gewicht',cPow:'Versorgung',msg:(a,d,dr,t,r,m)=>`Spritzrechner: ${a}, ${d}, Drohne ${dr}. Brühe gesamt ${t} L, ${r} Drohnen-Füllungen. Modell: ${m}.`},
+ro:{eye:'Calculator de stropire',h:'De câtă soluție aveți nevoie pentru lucrare?',p:'Introduceți suprafața, doza și drona. Vă spunem de câte realimentări aveți nevoie și ce DroneSpray se potrivește.',area:'Suprafață',areaU:'ha',dose:'Doză',doseU:'L / ha',drone:'Dronă',other:'Altă dronă',tank:'Rezervorul dronei',tot:'Soluție totală',ref:'Realimentări dronă',time:'Dronă umplută în',sec:'s',min:'min',rec:'Vă recomandăm',mine:'Alegerea dumneavoastră',one:(t,c)=>`Toată soluția (${t} L) dintr-o singură umplere a rezervorului de ${c} L.`,alt:'Alternativ: ',many:(b,c,big)=>(big?'Cel mai mare rezervor al nostru: toată lucrarea':'Toată lucrarea')+` în ${b} umpleri de ${c} L.`,all:'Toate modelele · atingeți pentru a alege',small:'drone mici',f1:'1 umplere',fN:n=>n+(n%100===0||n%100>=20?' de':'')+' umpleri',cta:n=>`Solicitați o ofertă pentru ${n}`,note:'Calcul cu 80 L/min în câmp (DS110: 19 L/min). Rezervoarele dronelor conform specificațiilor oficiale ale producătorilor.',cTank:'Rezervor',cFlow:'Debit',cKg:'Greutate',cPow:'Alimentare',msg:(a,d,dr,t,r,m)=>`Calculator de stropire: ${a}, ${d}, dronă ${dr}. Soluție totală ${t} L, ${r} realimentări dronă. Model: ${m}.`}};
+/* [id, tank L, flow L/min, weight kg (0 = 12 V unit), alternative with the same tank] */
+const CALCM=[['ds110',110,19,0,''],['ds200',200,80,80,'ds200c'],['ds300',300,80,90,''],['ds420',420,80,80,'ds400'],['ds600',600,80,160,'']];
+/* spray tank volumes from the makers' official spec pages */
+const CALCD=[['DJI',[['Agras T10',8],['Agras T20P',20],['Agras T25',20],['Agras T25P',20],['Agras T30',30],['Agras T40',40],['Agras T50',40],['Agras T55',50],['Agras T70P',70],['Agras T100',100]]],['EAVision',[['EA-20X',20],['EA-30X',30],['EA-30XP',30],['J70',35],['J100',45],['J150',70]]],['XAG',[['V40',16],['P40',20],['P60',30],['P100 Pro',50],['P120 Pro',50],['P150',60],['P150 Max',80]]]];
+const CS={lang:'',area:0,dose:0,brand:0,drone:'Agras T50',l:40,custom:30,pick:''};
+const calcEl=()=>lang==='el';
+function calcReset(){if(CS.lang===lang)return;CS.lang=lang;CS.area=calcEl()?300:30;CS.dose=calcEl()?1.5:15}
+const calcImg=id=>{const p=IMG[id].card;return typeof VAR!=='undefined'&&VAR[p]&&VAR[p][1]?VAR[p][1][0]:p};
+const calcNum=n=>Number(n).toLocaleString(lang,{maximumFractionDigits:1});
+function calcSec(){calcReset();const c=CALCT[lang]||CALCT.en,el=calcEl();
+  const brands=CALCD.map(([b],i)=>`<button type="button" data-cb="${i}" aria-pressed="${CS.brand===i}">${b}</button>`).join('')+`<button type="button" data-cb="9" aria-pressed="${CS.brand===9}">${c.other}</button>`;
+  const lists=CALCD.map(([b,ds],i)=>`<div class="calc-ds" data-cg="${i}"${CS.brand===i?'':' hidden'}>${ds.map(([n,l])=>`<button type="button" data-cd="${n}" data-l="${l}" aria-pressed="${CS.drone===n}">${n}<small>${l} L</small></button>`).join('')}</div>`).join('');
+  return `<section class="band calc-band" id="calc"><div class="wrap"><div class="calc"><div class="calc-in">
+<span class="eyebrow">${c.eye}</span><h2>${c.h}</h2><p class="calc-sub">${c.p}</p>
+<div class="calc-f"><label for="calc-a">${c.area} <output id="calc-oa"></output></label><input type="range" id="calc-a" min="${el?10:1}" max="${el?2000:200}" step="${el?10:1}" value="${CS.area}"></div>
+<div class="calc-f"><label for="calc-d">${c.dose} <output id="calc-od"></output></label><input type="range" id="calc-d" min="${el?0.5:5}" max="${el?5:50}" step="${el?0.1:1}" value="${CS.dose}"></div>
+<div class="calc-f"><span class="calc-l">${c.drone}</span><div class="calc-br">${brands}</div>${lists}<div class="calc-cu"${CS.brand===9?'':' hidden'}><label for="calc-c">${c.tank}</label><input type="number" id="calc-c" min="5" max="200" value="${CS.custom}"> L</div></div>
+</div><div class="calc-res" aria-live="polite">
+<div class="calc-st"><div><span>${c.tot}</span><strong id="calc-tot"></strong></div><div><span>${c.ref}</span><strong id="calc-ref"></strong></div><div><span>${c.time}</span><strong id="calc-time"></strong></div></div>
+<div class="calc-rec"><div class="calc-txt"><div class="calc-k" id="calc-k"></div><div class="calc-n" id="calc-n"></div><p id="calc-why"></p><div class="calc-chips" id="calc-chips"></div></div><div class="calc-ph"><img id="calc-img" alt="" width="180" height="180" loading="lazy" decoding="async"></div></div>
+<div><p class="calc-l">${c.all}</p><div class="calc-bars" id="calc-bars"></div></div>
+<a class="btn calc-cta" id="calc-cta" href="#contact" data-product="ds600" data-subject="0"></a>
+<p class="calc-note">${c.note}</p></div></div></div></section>`}
+function calcRun(){if(!$('calc'))return;const c=CALCT[lang]||CALCT.en,el=calcEl();
+  const L=CS.brand===9?Math.max(5,+CS.custom||30):CS.l,tot=CS.area*CS.dose,refills=Math.ceil(tot/L),ok=m=>!(m[1]===110&&L>30);
+  const rec=CALCM.find(m=>m[1]>=tot&&ok(m))||CALCM[CALCM.length-1];let m=CALCM.find(x=>x[0]===CS.pick);if(!m||!ok(m)){m=rec;CS.pick=''}
+  const mine=m!==rec,batches=Math.ceil(tot/m[1]),secs=Math.round(L/m[2]*60),name=FULL[m[0]];
+  $('calc-oa').innerHTML=calcNum(CS.area)+'<small>'+c.areaU+'</small>';$('calc-od').innerHTML=calcNum(CS.dose)+'<small>'+c.doseU+'</small>';
+  $('calc-tot').innerHTML=calcNum(Math.round(tot))+'<small>L</small>';$('calc-ref').textContent=refills;
+  $('calc-time').innerHTML=secs<60?secs+'<small>'+c.sec+'</small>':calcNum(secs/60)+'<small>'+c.min+'</small>';
+  $('calc-k').textContent=mine?c.mine:c.rec;$('calc-n').textContent=name;
+  $('calc-why').textContent=batches===1?c.one(calcNum(Math.round(tot)),m[1])+(m[4]&&!mine?' '+c.alt+FULL[m[4]]+'.':''):c.many(batches,m[1],m[1]===600);
+  $('calc-chips').innerHTML=[[c.cTank,m[1]+' L'],[c.cFlow,m[2]+' L/min'],m[3]?[c.cKg,m[3]+' kg']:[c.cPow,'12 V']].map(([k,v])=>`<span>${v}</span>`).join('');
+  const im=$('calc-img');if(im.dataset.id!==m[0]){const first=!im.dataset.id;im.dataset.id=m[0];im.alt='DroneSpray '+name;
+    if(first)im.src=calcImg(m[0]);else{im.classList.add('swap');setTimeout(()=>{im.src=calcImg(m[0]);im.classList.remove('swap')},180)}}
+  $('calc-bars').innerHTML=CALCM.map(x=>{const nm=FULL[x[0]].replace(' Cone','');const w=(x[1]/600*100).toFixed(1);
+    if(!ok(x))return `<div class="calc-bar off"><b>${nm}</b><span class="tr"><s style="width:${w}%"></s></span><span class="nb">${c.small}</span></div>`;
+    const b=Math.ceil(tot/x[1]),f=Math.min(1,tot/b/x[1]);
+    return `<button type="button" class="calc-bar${x===m?' on':''}${x[0]===CS.pick?' pick':''}" data-cm="${x[0]}" aria-pressed="${x===m}"><b>${nm}</b><span class="tr"><s style="width:${w}%"><i style="width:${(f*100).toFixed(1)}%"></i></s></span><span class="nb">${b===1?c.f1:c.fN(b)}</span></button>`}).join('');
+  const a=$('calc-cta');a.textContent=c.cta(name)+' →';a.dataset.product=m[0];
+  const dr=CS.brand===9?c.other+' ('+L+' L)':CALCD[CS.brand][0]+' '+CS.drone+' ('+L+' L)';
+  a.dataset.msg=c.msg(calcNum(CS.area)+' '+c.areaU,calcNum(CS.dose)+' '+c.doseU,dr,calcNum(Math.round(tot)),refills,name)}
+document.addEventListener('input',e=>{const t=e.target;if(!t.closest||!t.closest('#calc'))return;
+  if(t.id==='calc-a')CS.area=+t.value;else if(t.id==='calc-d')CS.dose=+t.value;else if(t.id==='calc-c')CS.custom=+t.value;else return;calcRun()});
+document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('#calc [data-cb],#calc [data-cd],#calc [data-cm],#calc-cta');if(!t)return;
+  if(t.id==='calc-cta'){form.msg=t.dataset.msg||'';if(typeof track==='function')track('calc_quote',{model:t.dataset.product});return}
+  if(t.dataset.cb!==undefined){CS.brand=+t.dataset.cb;document.querySelectorAll('#calc [data-cb]').forEach(x=>x.setAttribute('aria-pressed',String(x===t)));
+    document.querySelectorAll('#calc [data-cg]').forEach(g=>g.hidden=+g.dataset.cg!==CS.brand);$('calc').querySelector('.calc-cu').hidden=CS.brand!==9;
+    if(CS.brand!==9){const cur=CALCD[CS.brand][1].find(d=>d[0]===CS.drone)||CALCD[CS.brand][1][0];CS.drone=cur[0];CS.l=cur[1];
+      document.querySelectorAll('#calc [data-cd]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.cd===CS.drone&&!x.closest('[hidden]'))))}
+  }else if(t.dataset.cd!==undefined){CS.drone=t.dataset.cd;CS.l=+t.dataset.l;document.querySelectorAll('#calc [data-cd]').forEach(x=>x.setAttribute('aria-pressed',String(x===t)))}
+  else if(t.dataset.cm){CS.pick=CS.pick===t.dataset.cm?'':t.dataset.cm}
+  calcRun()},true);
 function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
 ${pzSection()}
-${calcSection()}
+${calcSec()}
 ${news()}
 <section class="band acc-home"><div class="wrap"><div class="acc-head"><div class="head"><h2>${t.accNav}</h2><p>${t.accPageP}</p></div><a class="more" href="#accessories">${t.accAll} →</a></div><div class="acc-car"><button type="button" class="car-btn" data-car="-1" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><div class="acc-rail" id="acc-rail">${Array.from({length:Math.max(2,Math.ceil(8/ACC.length))},(_,k)=>accCards(ACC,k>0)).join('')}</div><button type="button" class="car-btn" data-car="1" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div></div></section>
 ${photoGal()}
@@ -1044,7 +1108,7 @@ function chrome(view){const t=T[lang];document.documentElement.lang=lang;$('slog
 <div><h3>${t.addr}</h3><ul><li><strong>${coName()}</strong></li><li>${CO.addr[lang]}</li><li><span class="k">${t.hours}</span>${CO.hours[lang]}</li></ul></div></div>
 <div class="wrap"><div class="legal"><span>${t.legal}</span><span class="lg-links">${privLink()}${typeof HAS_GA!=='undefined'&&HAS_GA?`<a class="priv-link" href="#" data-ckset="1">${(PT[lang]||PT.en).ckSet}</a>`:''}</span></div></div>`;
   $('box-close').setAttribute('aria-label',t.close);$('box-close').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'}
-function render(scroll){const view=route();clearInterval(slideTimer);clearInterval(carTimer);$('view').innerHTML=view==='home'?home():view==='contact'?contact():view==='accessories'?accessories():view==='dealers'?dealers():view==='network'?network():view==='privacy'?privacy():view.startsWith('acc-')?accPage(view.slice(4)):product(view);chrome(view.startsWith('acc-')?'accessories':view);startSlides();startCar();pzApply();pageTitle(view);if($('ck'))ckBar(true);
+function render(scroll){const view=route();clearInterval(slideTimer);clearInterval(carTimer);$('view').innerHTML=view==='home'?home():view==='contact'?contact():view==='accessories'?accessories():view==='dealers'?dealers():view==='network'?network():view==='privacy'?privacy():view.startsWith('acc-')?accPage(view.slice(4)):product(view);chrome(view.startsWith('acc-')?'accessories':view);startSlides();startCar();pzApply();calcRun();pageTitle(view);if($('ck'))ckBar(true);
   if(scroll){const a=location.hash==='#products'?$('products'):null;if(a)a.scrollIntoView();else window.scrollTo(0,0)}}
 let BOXSET=[],BOXI=0,BOXPG=false;function boxCount(){let c=$("box-count");if(!c){c=document.createElement("span");c.id="box-count";c.className="box-count";$("box").appendChild(c)}c.textContent=BOXSET.length>1?(BOXI+1)+" / "+BOXSET.length:""}function boxGo(e){if(BOXSET.length<2)return;BOXI=(BOXI+e+BOXSET.length)%BOXSET.length;$("box-img").src=BOXSET[BOXI];$("box").classList.remove("zin");boxCount();if(BOXPG)pgGo(BOXI)}(()=>{let x0=null;const b=$("box");b.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener("touchend",e=>{if(x0===null||b.classList.contains("zin"))return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40)boxGo(dx<0?1:-1)})})();
 document.addEventListener('keydown',e=>{if(!$('box').open)return;if(e.key==='ArrowRight')boxGo(1);if(e.key==='ArrowLeft')boxGo(-1)});
