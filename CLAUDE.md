@@ -27,7 +27,9 @@ Static, multilingual catalogue site for DroneSpray pre-mixing systems for agricu
   - Settings come from `tools/site.json` (`url`, `gaId`, `formEndpoint`, `formEmail`).
   - Image results are cached in `.cache/`.
 - SEO / GEO files, read by `prod.py` (`{URL}` = `site.json` url):
-  - `tools/seo-head.html`: robots, og:locale, geo tags, JSON-LD graph (LocalBusiness, Brand, WebSite, 9 Products). Update it when models, specs or contact details change.
+  - `tools/seo-head.html`: robots, og:locale, geo tags, JSON-LD graph (LocalBusiness, Brand, WebSite, WebPage for the home page, ItemList of the 9 model pages). Update it when models or contact details change.
+    - The model list is plain `ListItem`s (name + url). **Do not use `"@type":"Product"`**: without a price, review or rating Google reports every one as an invalid "Product snippet" (27 errors in Search Console, removed 2026-11-21).
+    - Google result icon and thumbnail: `favicon-48.png`, `favicon-192.png`, `favicon.ico` and `logo-square.jpg` (yellow square with the DroneSpray logo, the owner's choice) live in `tools/static/`. `logo-square.jpg` is the business/brand logo and the home page's `primaryImageOfPage`. `og-image.jpg` (wide, logo + machine) stays for social links.
   - `tools/seo-body.html`: crawlable static content inside `<main id="view">` for crawlers without JavaScript; the app replaces it on load.
   - `tools/llms.txt`: English summary for AI assistants, published at `/llms.txt`.
   - `prod.py` also writes an image sitemap.
