@@ -193,6 +193,8 @@ head = f'''<!doctype html>
 <meta name="theme-color" content="#f6b70b">
 {f'<link rel="canonical" href="{URL}/">' if URL else ''}
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DroneSpray">
