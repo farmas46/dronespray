@@ -844,6 +844,10 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 @media (prefers-reduced-motion:reduce){.calc-ph img,.calc-bar .tr i{transition:none}}
 /* home title on wider screens: capitals like the section titles, 2 lines (owner's choice, 2026-11-23) */
 @media (min-width:861px){.hero.hero-c .wrap{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:36px}.hero-c h1{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.005em;font-size:clamp(1.6rem,2vw,2.15rem);line-height:1.12;max-width:16em}}
+/* home top: lead line, CE | UKCA marks under the buttons, tighter (owner's choice, 2026-11-23) */
+.hb-cert{display:flex;align-items:center;gap:16px;color:var(--ink);padding-top:20px;border-top:1px solid var(--line);width:100%}.hb-cert svg{height:42px;width:auto;display:block}.hb-cert i{width:2px;height:48px;background:currentColor}.hb-cert b{font:800 21px/.96 var(--display);letter-spacing:.06em}
+@media (max-width:1099px){.hb-cert{justify-content:center;border-top:0;padding-top:4px}.hb-cert svg{height:36px}.hb-cert i{height:42px}.hb-cert b{font-size:18px}}
+@media (min-width:1100px){.hero-c h1{font-size:clamp(1.6rem,1.6vw,1.8rem);max-width:none}.hero.hero-c .wrap{padding-block:20px 22px;gap:48px}.hero-c .hs{height:min(470px,29vw)}.hero-c .hb-lead{display:block!important;margin:-8px 0 0;color:var(--muted);font-size:1.08rem;line-height:1.6;max-width:30em}}
 </style>
 
 <div class="masthead"><div class="wrap">
@@ -1036,7 +1040,7 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
   }else if(t.dataset.cd!==undefined){CS.drone=t.dataset.cd;CS.l=+t.dataset.l;document.querySelectorAll('#calc [data-cd]').forEach(x=>x.setAttribute('aria-pressed',String(x===t)))}
   else if(t.dataset.cm){CS.pick=CS.pick===t.dataset.cm?'':t.dataset.cm}
   calcRun()},true);
-function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
+function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><div class="hb-cert" role="img" aria-label="CE | UKCA"><svg viewBox="0 0 92 50" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6.4"><path d="M40 7.6A20.5 20.5 0 1 0 40 42.4"/><path d="M86 7.6A20.5 20.5 0 1 0 86 42.4"/><path d="M63 25H80"/></g></svg><i></i><b>UK<br>CA</b></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
 ${pzSection()}
 ${calcSec()}
 ${news()}
