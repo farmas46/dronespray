@@ -60,7 +60,7 @@ document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest
   }else if(t.dataset.cd!==undefined){CS.drone=t.dataset.cd;CS.l=+t.dataset.l;document.querySelectorAll('#calc [data-cd]').forEach(x=>x.setAttribute('aria-pressed',String(x===t)))}
   else if(t.dataset.cm){CS.pick=CS.pick===t.dataset.cm?'':t.dataset.cm}
   calcRun()},true);
-function home(){const e=T[lang];return`<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${e.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${e.seeProducts} \u2192</a><a class="btn ghost" href="#contact" data-subject="0">${e.quote}</a></div><div class="hb-cert" role="img" aria-label="CE | UKCA"><svg viewBox="0 0 92 50" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="6.4"><path d="M40 7.6A20.5 20.5 0 1 0 40 42.4"/><path d="M86 7.6A20.5 20.5 0 1 0 86 42.4"/><path d="M63 25H80"/></g></svg><i></i><b>UK<br>CA</b></div><dl class="hb-stats">${HX[lang].st.map(([a,i])=>`<div><dt>${i}</dt><dd>${a}</dd></div>`).join("")}</dl></div></div></section>
+function home(){const e=T[lang];return`<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${e.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${e.seeProducts} \u2192</a><a class="btn ghost" href="#contact" data-subject="0">${e.quote}</a></div><dl class="hb-stats">${HX[lang].st.map(([a,i])=>`<div><dt>${i}</dt><dd>${a}</dd></div>`).join("")}</dl></div></div></section>
 ${pzSection()}
 ${calcSec()}
 ${news()}

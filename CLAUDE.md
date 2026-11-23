@@ -94,7 +94,6 @@ Optionally also run `python tools/build.py`.
 - Language switcher is plain text `ΕΛ | EN | ES | IT | FR` with a yellow underline.
 - Every machine's specs show CE | UKCA.
 - Do not add "how it works" sections or hero stats; the owner removed them as clutter.
-- Home top (approved 2026-11-23, after several rejected tries: text bullets, a centered layout): title left in Manrope 800 capitals, 2 lines; the short `HX[lang].lead` line under it on screens ≥1100 px; under the buttons the CE | UKCA marks (`.hb-cert`, drawn as inline SVG + text, not an image). On mobile only the marks are added, centred.
 - Wording the owner chose:
   - «μάνικα 3/4"» (not λάστιχο)
   - «φιαλών σκευασμάτων»
