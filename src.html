@@ -1295,14 +1295,26 @@ function parsePath(p){const s=p.split('/').filter(Boolean);let l='el';if(s[0]&&L
 route=function(){return CUR};
 function fixLinks(){document.querySelectorAll('a[href^="#"]').forEach(a=>{const h=a.getAttribute('href').slice(1);if(h==='products'){a.dataset.r='products';a.setAttribute('href',pathOf('home',lang)+'#products')}else if(RVIEWS.includes(h)){a.dataset.r=h;a.setAttribute('href',pathOf(h,lang))}})}
 function setTag(sel,make,attr,val){let el=document.head.querySelector(sel);if(!el){el=document.createElement(make[0]);for(const[k,v]of Object.entries(make[1]))el.setAttribute(k,v);document.head.appendChild(el)}el.setAttribute(attr,val)}
+/* Google titles and descriptions (owner-approved 2026-11-23): the words people search for. Visible page texts are separate. */
+const SEOT={
+el:{home:'Σταθμοί ανάδευσης & ανεφοδιασμού για drone ψεκασμού',hd:'Σταθμοί ανάδευσης και ανεφοδιασμού ψεκαστικού υγρού για drone, 110–600 L: αναδευτήρας με ανοξείδωτη αντλία 80 L/min. Κατασκευή FARMA Κυράτσας, Λάρισα.',m:l=>`Σταθμός ανάδευσης ${l} L για drone ψεκασμού`,pre:'Σταθμός ανάδευσης και ανεφοδιασμού για drone ψεκασμού.',acc:'Αξεσουάρ για σταθμούς ανάδευσης drone'},
+en:{home:'Pre-mixing & refill stations for spray drones',hd:'Pre-mixing and refill stations for agricultural spray drones, 110–600 L, with a stainless pump up to 80 L/min. Made by FARMA Kyratsas, Greece.',m:l=>`${l} L pre-mixing station for spray drones`,pre:'Pre-mixing and refill station for spray drones.',acc:'Accessories for drone pre-mixing stations'},
+es:{home:'Estaciones de premezcla y recarga para drones de pulverización',hd:'Estaciones de premezcla y recarga para drones de pulverización agrícola, 110–600 L, con bomba inox de hasta 80 L/min. Fabricadas por FARMA Kyratsas, Grecia.',m:l=>`Estación de premezcla de ${l} L para drones de pulverización`,pre:'Estación de premezcla y recarga para drones de pulverización.',acc:'Accesorios para estaciones de premezcla de drones'},
+it:{home:'Stazioni di premiscelazione e rifornimento per droni irroratori',hd:'Stazioni di premiscelazione e rifornimento per droni irroratori agricoli, 110–600 L, con pompa inox fino a 80 L/min. Prodotte da FARMA Kyratsas, Grecia.',m:l=>`Stazione di premiscelazione da ${l} L per droni irroratori`,pre:'Stazione di premiscelazione e rifornimento per droni irroratori.',acc:'Accessori per stazioni di premiscelazione per droni'},
+fr:{home:'Stations de prémélange et de remplissage pour drones de pulvérisation',hd:'Stations de prémélange et de remplissage pour drones de pulvérisation agricole, 110–600 L, pompe inox jusqu’à 80 L/min. Fabriquées par FARMA Kyratsas, Grèce.',m:l=>`Station de prémélange ${l} L pour drones de pulvérisation`,pre:'Station de prémélange et de remplissage pour drones de pulvérisation.',acc:'Accessoires pour stations de prémélange pour drones'},
+de:{home:'Misch- und Befüllstationen für Sprühdrohnen',hd:'Misch- und Befüllstationen für Sprühdrohnen in der Landwirtschaft, 110–600 L, Edelstahlpumpe bis 80 L/min. Hergestellt von FARMA Kyratsas, Griechenland.',m:l=>`Mischstation ${l} L für Sprühdrohnen`,pre:'Misch- und Befüllstation für Sprühdrohnen.',acc:'Zubehör für Drohnen-Mischstationen'},
+ro:{home:'Stații de premixare și alimentare pentru drone de stropit',hd:'Stații de premixare și alimentare pentru drone agricole de stropit, 110–600 L, cu pompă inox de până la 80 L/min. Produse de FARMA Kyratsas, Grecia.',m:l=>`Stație de premixare ${l} L pentru drone de stropit`,pre:'Stație de premixare și alimentare pentru drone de stropit.',acc:'Accesorii pentru stații de premixare pentru drone'}};
 function pageDesc(v){const t=T[lang];const cut=s=>{s=String(s||'').replace(/\s+/g,' ').trim();return s.length>160?s.slice(0,157).replace(/\s+\S*$/,'')+'…':s};
-  if(v==='home')return cut(t.h1+'. '+t.lead);
-  if(t.intro&&t.intro[v])return cut(t.intro[v]);
+  const S=SEOT[lang]||SEOT.en;
+  if(v==='home')return cut(S.hd);
+  if(t.intro&&t.intro[v])return cut(S.pre+' '+t.intro[v]);
   if(v.startsWith('acc-')){const a=ACC.find(x=>'acc-'+x.id===v);return cut((a?a.name[lang]+'. ':'')+(t.accDetP||''))}
   return cut({accessories:t.accPageP,dealers:t.dl&&t.dl.p,network:t.nw&&t.nw.p,contact:t.cP,privacy:(PRIV[lang]||PRIV.en).intro}[v]||t.lead)}
 function seoHead(v){const t=T[lang],url=SITE+pathOf(v,lang);
-  if(v==='home')document.title='DroneSpray | '+t.h1;
-  else if(FULL[v]&&t.desc&&SPEC[v])document.title=FULL[v]+' – '+t.desc(SPEC[v].cap)+' | DroneSpray';
+  const S=SEOT[lang]||SEOT.en;
+  if(v==='home')document.title='DroneSpray | '+S.home;
+  else if(FULL[v]&&SPEC[v])document.title=FULL[v]+' – '+S.m(SPEC[v].cap)+' | DroneSpray';
+  else if(v==='accessories')document.title=S.acc+' | DroneSpray';
   const d=pageDesc(v);
   setTag('meta[name="description"]',['meta',{name:'description'}],'content',d);
   setTag('link[rel="canonical"]',['link',{rel:'canonical'}],'href',url);
