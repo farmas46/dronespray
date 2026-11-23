@@ -842,6 +842,8 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
   .calc-bar{grid-template-columns:70px 1fr 92px;font-size:.8rem}
 }
 @media (prefers-reduced-motion:reduce){.calc-ph img,.calc-bar .tr i{transition:none}}
+/* home title on wider screens: capitals like the section titles, 2 lines (owner's choice, 2026-11-23) */
+@media (min-width:861px){.hero.hero-c .wrap{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:36px}.hero-c h1{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.005em;font-size:clamp(1.6rem,2vw,2.15rem);line-height:1.12;max-width:16em}}
 </style>
 
 <div class="masthead"><div class="wrap">
