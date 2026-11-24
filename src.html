@@ -900,6 +900,24 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .vid-car.fits .car-btn{display:none}
 .pz-car .car-btn[data-vn="-1"]{left:6px}.pz-car .car-btn[data-vn="1"]{right:6px}
 .vid-car .car-btn{top:calc(50% - 24px)}
+
+/* Video window */
+.vid-frame{position:relative}
+.vid-open{all:unset;position:absolute;inset:0;cursor:pointer;display:flex;align-items:flex-end;justify-content:flex-start;padding:14px}
+.vid-play{width:52px;height:52px;border-radius:50%;background:var(--yellow);color:var(--on-yellow);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.3);transition:transform .2s}
+.vid-play svg{width:24px;height:24px;margin-left:3px}
+.vid-open:hover .vid-play{transform:scale(1.1)}
+.vid-open:focus-visible{outline:3px solid var(--yellow);outline-offset:-3px;border-radius:22px}
+#vbox{padding:20px 20px 16px;max-width:min(560px,calc(100vw - 24px))}
+#vbox video{display:block;height:calc(100vh - 150px);max-height:960px;max-width:100%;aspect-ratio:9/16;width:auto;margin:0 auto;border-radius:10px;background:#000;object-fit:contain}
+#vbox-t{margin:12px auto 0;max-width:30rem;text-align:center;font-family:var(--display);font-weight:800;font-size:1rem;line-height:1.3;text-transform:uppercase;color:var(--ink)}
+#vbox-close{position:absolute;top:12px;right:12px;z-index:2;width:42px;height:42px;border-radius:10px;border:0;padding:0;background:rgba(255,255,255,.92);color:#1c1f1b;box-shadow:0 4px 16px rgba(0,0,0,.18);display:grid;place-items:center;cursor:pointer;transition:background .15s,transform .15s}
+#vbox-close:hover{background:#f6b70b;transform:scale(1.06)}
+#vbox-close svg{width:18px;height:18px}
+#vbox.multi .box-nav{display:grid}
+#vbox-prev{left:12px}#vbox-next{right:12px}
+#vbox .box-nav{top:calc(50% - 20px)}
+@media (max-width:600px){#vbox{padding:10px 10px 12px}#vbox video{height:calc(100vh - 130px)}#vbox-prev{left:6px}#vbox-next{right:6px}}
 </style>
 
 <div class="masthead"><div class="wrap">
@@ -915,6 +933,7 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 <footer id="footer"></footer>
 <a class="wa" id="wa" href="https://wa.me/306983254053" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-width="2.6"/></svg><span>WhatsApp</span></a>
 <dialog id="box"><img id="box-img" alt=""><button id="box-close" type="button"></button><button type="button" class="box-nav" id="box-prev" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="box-nav" id="box-next" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg></button></dialog>
+<dialog id="vbox"><video id="vbox-v" controls playsinline muted preload="none" disablepictureinpicture></video><p id="vbox-t"></p><button id="vbox-close" type="button" aria-label="×"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button type="button" class="box-nav" id="vbox-prev" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="box-nav" id="vbox-next" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg></button></dialog>
 
 <script>
 const SS=(p,z)=>'';
@@ -1133,10 +1152,15 @@ de:{eye:'Im Einsatz',h2:'Vorstellung des DS600',h3:'Eindrücke von der Eröffnun
 ro:{eye:'În câmp',h2:'Prezentarea DS600',h3:'Momente de la inaugurarea dealerului nostru din Spania',h5:'Model nou – DS400',h4:'Platformă detașabilă cu toate sistemele și DS300, construită pentru partenerii noștri DESERVE2FLY',ve:'Videoclipuri',h:'Livrarea unui DS600 la crama La Tour Melas',p:'Pe o camionetă, printre vițe: pregătește soluția de stropit și realimentează drona chiar acolo unde se lucrează.'}};
 const VIDS=[{src:'files/dronespray-field.mp4',poster:'img/field-poster.jpg',k:'h'},{src:'files/ds600-presentation.mp4',poster:'img/ds600-presentation-poster.jpg',k:'h2'},{src:'files/dealer-spain-opening.mp4',poster:'img/dealer-spain-opening-poster.jpg',k:'h3'},{src:'files/deserve2fly-platform.mp4',poster:'img/deserve2fly-platform-poster.jpg',k:'h4'},{src:'files/ds400-new-model.mp4',poster:'img/ds400-new-model-poster.jpg',k:'h5'}];
 const vidTag=(n,cls)=>{const v=VIDS[n];return `<video class="${cls}" src="${v.src}" poster="${v.poster}" muted loop playsinline preload="none" disablepictureinpicture aria-label="${(VIDT[lang]||VIDT.en)[v.k]}"></video>`};
-function vidSec(){const v=VIDT[lang]||VIDT.en;return `<section class="band vid-band"><div class="wrap"><div class="head"><span class="eyebrow">${v.ve}</span></div><div class="pz-car vid-car"><button type="button" class="car-btn" data-vn="-1" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><div class="vid-rail" id="vidr">${VIDS.map((x,n)=>`<figure class="vid-fig"><div class="vid-frame">${vidTag(n,'vid')}</div><figcaption>${v[x.k]}</figcaption></figure>`).join('')}</div><button type="button" class="car-btn" data-vn="1" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div><div class="vid-cta"><a class="btn" href="#ds600">DS600 →</a></div></div></section>`}
+function vidSec(){const v=VIDT[lang]||VIDT.en;return `<section class="band vid-band"><div class="wrap"><div class="head"><span class="eyebrow">${v.ve}</span></div><div class="pz-car vid-car"><button type="button" class="car-btn" data-vn="-1" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><div class="vid-rail" id="vidr">${VIDS.map((x,n)=>`<figure class="vid-fig"><div class="vid-frame">${vidTag(n,'vid')}<button type="button" class="vid-open" data-vopen="${n}" aria-label="${v[x.k]}"><span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span></button></div><figcaption>${v[x.k]}</figcaption></figure>`).join('')}</div><button type="button" class="car-btn" data-vn="1" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div><div class="vid-cta"><a class="btn" href="#ds600">DS600 →</a></div></div></section>`}
 let vidIO=null;function vidRun(){if(vidIO)vidIO.disconnect();const vs=document.querySelectorAll('video.vid');if(!vs.length||!('IntersectionObserver' in window))return;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;vidIO=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!still){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35});vs.forEach(v=>{if(still)v.controls=true;vidIO.observe(v)});vidFit()}
 function vidFit(){const r=$('vidr');if(r)r.closest('.vid-car').classList.toggle('fits',r.scrollWidth<=r.clientWidth+2)}
 addEventListener('resize',vidFit);
+/* Open a video in a window to watch it whole, from the start, with controls. */
+let VI=0;function vopen(n){const L=VIDS.length;VI=(n+L)%L;const x=VIDS[VI],v=$('vbox-v'),b=$('vbox');document.querySelectorAll('video.vid').forEach(y=>y.pause());v.poster=x.poster;v.src=x.src;v.currentTime=0;$('vbox-t').textContent=(VIDT[lang]||VIDT.en)[x.k];$('vbox-close').setAttribute('aria-label',T[lang].close||'×');b.classList.toggle('multi',L>1);if(!b.open)b.showModal();v.play().catch(()=>{})}
+document.addEventListener('click',e=>{if(!e.target.closest)return;const o=e.target.closest('[data-vopen]');if(o){vopen(+o.dataset.vopen);return}if(e.target.closest('#vbox-close')||e.target.id==='vbox'){$('vbox').close();return}if(e.target.closest('#vbox-prev')){vopen(VI-1);return}if(e.target.closest('#vbox-next'))vopen(VI+1)});
+$('vbox').addEventListener('close',()=>{$('vbox-v').pause();vidRun()});
+
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-vn]');if(!b)return;const r=$('vidr'),f=r&&r.querySelector('.vid-fig');if(f)r.scrollBy({left:+b.dataset.vn*(f.offsetWidth+24),behavior:'smooth'})});
 function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><div class="hb-cert" role="img" aria-label="CE | UKCA"><img src="img/ce-ukca.png" alt="CE | UKCA" width="644" height="334" decoding="async"></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
 ${pzSection()}
