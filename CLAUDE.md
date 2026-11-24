@@ -52,7 +52,8 @@ Optionally also run `python tools/build.py`.
 
 - Real URLs (router block just before `render(false);ckInit();`):
   - Greek at the root: `/`, `/ds600/`, `/contact/`; other languages under a prefix: `/en/`, `/de/ds600/`, `/it/acc-reel/`.
-  - views: `home`, model ids `ds600 ds500 ds420 ds400 ds300 ds200 ds200c ds110 pm20`, `accessories`, `acc-<id>`, `dealers`, `network`, `contact`, `privacy`. `products` is the home page scrolled to `#products`.
+  - views: `home`, model ids `ds600 ds500 ds420 ds400 ds300 ds200 ds200c ds110 pm20`, `accessories`, `acc-<id>`, `why`, `dealers`, `network`, `contact`, `privacy`. `products` is the home page scrolled to `#products`.
+  - `why` = "Why DroneSpray" page (menu link after Accessories): `whyPage()`, texts in `WHY[lang]` (all 7 languages), icons in `WHYI`. Owner's text, approved 2026-11-24. Do not call the piping "hydraulic" (υδραυλικές): the machines have no hydraulic system.
   - Templates still write `href="#ds600"`; `fixLinks()` turns them into real paths after every render and marks them `data-r`. Old `#ds600` links still work.
   - `seoHead()` sets title, description, canonical, og tags and hreflang (x-default = English) per page. `SITE` holds the live URL.
   - Google titles and descriptions come from `SEOT[lang]` (home title `home`, home description `hd`, model title `m(cap)`, prefix `pre` before each model's intro, accessories title `acc`). They use the words people search: «σταθμός ανάδευσης», «ανεφοδιασμός» (el), "pre-mixing/refill station" (en), "estación de premezcla", "stazione di premiscelazione", "station de prémélange", "Mischstation", "stație de premixare". The visible page texts (h1 etc.) are separate and unchanged. Owner-approved 2026-11-23.
