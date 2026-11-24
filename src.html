@@ -887,12 +887,19 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .vid-frame{width:100%;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#1c1f1b;box-shadow:0 30px 60px -30px rgba(28,31,27,.45)}
 .vid-frame video{width:100%;height:100%;object-fit:cover;display:block}
 
-.vid-two{display:grid;grid-template-columns:repeat(2,minmax(0,340px));gap:40px;justify-content:center}
 .vid-fig{margin:0;display:flex;flex-direction:column;gap:14px}
 .vid-fig .vid-frame{width:100%}
 .vid-fig figcaption{font-family:var(--display);font-weight:800;font-size:1.15rem;line-height:1.25;text-transform:uppercase;letter-spacing:.02em}
 .vid-cta{display:flex;justify-content:center;margin-top:32px}
-@media (max-width:760px){.vid-two{grid-template-columns:minmax(0,1fr);gap:28px;justify-items:center}.vid-fig{width:min(100%,340px)}}
+
+.vid-car{margin-top:0}
+.vid-rail{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 2px 10px}
+.vid-rail::-webkit-scrollbar{display:none}
+.vid-rail .vid-fig{flex:0 0 min(76vw,340px);scroll-snap-align:center}
+.vid-car.fits .vid-rail{justify-content:center}
+.vid-car.fits .car-btn{display:none}
+.pz-car .car-btn[data-vn="-1"]{left:6px}.pz-car .car-btn[data-vn="1"]{right:6px}
+.vid-car .car-btn{top:calc(50% - 24px)}
 </style>
 
 <div class="masthead"><div class="wrap">
@@ -1126,8 +1133,11 @@ de:{eye:'Im Einsatz',h2:'Vorstellung des DS600',ve:'Videos',h:'Auslieferung eine
 ro:{eye:'În câmp',h2:'Prezentarea DS600',ve:'Videoclipuri',h:'Livrarea unui DS600 la crama La Tour Melas',p:'Pe o camionetă, printre vițe: pregătește soluția de stropit și realimentează drona chiar acolo unde se lucrează.'}};
 const VIDS=[{src:'files/dronespray-field.mp4',poster:'img/field-poster.jpg',k:'h'},{src:'files/ds600-presentation.mp4',poster:'img/ds600-presentation-poster.jpg',k:'h2'}];
 const vidTag=(n,cls)=>{const v=VIDS[n];return `<video class="${cls}" src="${v.src}" poster="${v.poster}" muted loop playsinline preload="none" disablepictureinpicture aria-label="${(VIDT[lang]||VIDT.en)[v.k]}"></video>`};
-function vidSec(){const v=VIDT[lang]||VIDT.en;return `<section class="band vid-band"><div class="wrap"><div class="head"><span class="eyebrow">${v.ve}</span></div><div class="vid-two">${VIDS.map((x,n)=>`<figure class="vid-fig"><div class="vid-frame">${vidTag(n,'vid')}</div><figcaption>${v[x.k]}</figcaption></figure>`).join('')}</div><div class="vid-cta"><a class="btn" href="#ds600">DS600 →</a></div></div></section>`}
-let vidIO=null;function vidRun(){if(vidIO)vidIO.disconnect();const vs=document.querySelectorAll('video.vid');if(!vs.length||!('IntersectionObserver' in window))return;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;vidIO=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!still){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35});vs.forEach(v=>{if(still)v.controls=true;vidIO.observe(v)})}
+function vidSec(){const v=VIDT[lang]||VIDT.en;return `<section class="band vid-band"><div class="wrap"><div class="head"><span class="eyebrow">${v.ve}</span></div><div class="pz-car vid-car"><button type="button" class="car-btn" data-vn="-1" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><div class="vid-rail" id="vidr">${VIDS.map((x,n)=>`<figure class="vid-fig"><div class="vid-frame">${vidTag(n,'vid')}</div><figcaption>${v[x.k]}</figcaption></figure>`).join('')}</div><button type="button" class="car-btn" data-vn="1" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div><div class="vid-cta"><a class="btn" href="#ds600">DS600 →</a></div></div></section>`}
+let vidIO=null;function vidRun(){if(vidIO)vidIO.disconnect();const vs=document.querySelectorAll('video.vid');if(!vs.length||!('IntersectionObserver' in window))return;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;vidIO=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!still){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35});vs.forEach(v=>{if(still)v.controls=true;vidIO.observe(v)});vidFit()}
+function vidFit(){const r=$('vidr');if(r)r.closest('.vid-car').classList.toggle('fits',r.scrollWidth<=r.clientWidth+2)}
+addEventListener('resize',vidFit);
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-vn]');if(!b)return;const r=$('vidr'),f=r&&r.querySelector('.vid-fig');if(f)r.scrollBy({left:+b.dataset.vn*(f.offsetWidth+24),behavior:'smooth'})});
 function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><div class="hb-cert" role="img" aria-label="CE | UKCA"><img src="img/ce-ukca.png" alt="CE | UKCA" width="644" height="334" decoding="async"></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
 ${pzSection()}
 ${vidSec()}
