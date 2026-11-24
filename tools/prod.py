@@ -229,7 +229,7 @@ open(OUT + '.nojekyll', 'w').write('')
 open(OUT + 'robots.txt', 'w').write('User-agent: *\nAllow: /\n' + (f'Sitemap: {URL}/sitemap.xml\n' if URL else ''))
 if URL:
     today = datetime.date.today().isoformat()
-    simg = ['og-image.jpg'] + [f'img/{n}.webp' for n in ('ph6', 'ph7', 'ph1', 'ph3', 'ph4', 'ph5', 'ds600', 'ds500', 'ds420', 'ds400', 'ds300', 'ds200', 'ds200c', 'ds110', 'pm20')]
+    simg = ['og-image.jpg'] + [f'img/{n}.webp' for n in ('ph6', 'ph7', 'ph8', 'ph1', 'ph3', 'ph4', 'ph5', 'ds600', 'ds500', 'ds420', 'ds400', 'ds300', 'ds200', 'ds200c', 'ds110', 'pm20')]
     simg = ''.join(f'<image:image><image:loc>{URL}/{i}</image:loc></image:image>' for i in simg if os.path.exists(OUT + i))
     open(OUT + 'sitemap.xml', 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"><url><loc>{URL}/</loc><lastmod>{today}</lastmod>{simg}</url></urlset>\n')
     if tool_text('llms.txt'):
