@@ -855,8 +855,8 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .why-hero h1{font-size:clamp(1.8rem,3.6vw,2.9rem);line-height:1.08;margin:12px 0 18px;max-width:20em}
 .why-lead{font-size:1.15rem;color:var(--muted);max-width:44em;margin:0 0 12px}
 .why-lead2{color:var(--muted);max-width:44em;margin:0}
-.why-photo{margin:0}
-.why-photo img{display:block;width:100%;height:clamp(240px,42vw,520px);object-fit:cover;object-position:50% 62%}
+.why-photo{margin:0 auto;max-width:1180px;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.why-photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:50% 45%;border-radius:16px}
 .why-feats{padding:64px 0}
 .why-feats h2{font-size:clamp(1.5rem,2.8vw,2.2rem);line-height:1.1;margin:0 0 30px}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:18px}
