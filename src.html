@@ -882,6 +882,15 @@ dialog img{display:block;border-radius:10px;max-height:calc(100vh - 80px);max-wi
 .why-slogan{background:var(--yellow);color:var(--on-yellow);text-align:center;padding:26px 16px;font-family:var(--display);font-weight:800;font-size:clamp(1rem,2vw,1.35rem);line-height:1.3;letter-spacing:.08em;text-transform:uppercase}
 @media (max-width:860px){.why-close .wrap{grid-template-columns:minmax(0,1fr)}.why-hero{padding:36px 0 32px}.why-feats,.why-close{padding:44px 0}}
 @media (max-width:600px){.why-card.wide{flex-direction:column}}
+
+/* Field video */
+.vid-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center}
+.vid-frame{justify-self:center;width:min(100%,380px);aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#1c1f1b;box-shadow:0 30px 60px -30px rgba(28,31,27,.45)}
+.vid-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.vid-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px;max-width:32rem}
+.vid-copy h2{font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.12}
+.vid-copy p{color:var(--muted);font-size:1.05rem}
+@media (max-width:760px){.vid-grid{grid-template-columns:minmax(0,1fr);gap:24px}.vid-frame{width:min(100%,340px)}}
 </style>
 
 <div class="masthead"><div class="wrap">
@@ -1105,8 +1114,20 @@ function whyPage(){const w=WHY[lang]||WHY.en,ph=p=>`<img src="${p}"${SS(p,'100vw
 <section class="why-feats"><div class="wrap"><h2>${w.fh}</h2><div class="why-grid">${w.f.map(([h,p],i)=>`<article class="why-card${i===w.f.length-1?' wide':''}"><span class="why-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${WHYI[WHYK[i]]}</svg></span><div><span class="why-num">0${i+1}</span><h3>${h}</h3><p>${p}</p></div></article>`).join('')}</div></div></section>
 <section class="why-close"><div class="wrap"><div><span class="eyebrow">DroneSpray</span><h2>${w.ch}</h2><p>${w.cp}</p><p class="why-tri">${w.tri.map(x=>`<span>${x}</span>`).join('')}</p><div class="btn-row"><a class="btn" href="#contact" data-subject="0">${w.b1} →</a><a class="btn ghost" href="#products">${w.b2}</a></div></div><div class="why-img">${ph('img/ph8.webp')}</div></div></section>
 <div class="why-slogan">Engineered for performance. Built for the field.</div>`}
+/* Field video (no sound): plays muted in a loop only while on screen. */
+const VIDT={el:{eye:'Στο χωράφι',h:'Παράδοση DS600 στο οινοποιείο La Tour Melas',p:'Πάνω σε αγροτικό, ανάμεσα στα αμπέλια: ετοιμάζει το ψεκαστικό υγρό και ανεφοδιάζει το drone εκεί που γίνεται η δουλειά.'},
+en:{eye:'In the field',h:'DS600 delivery to La Tour Melas winery',p:'On a pickup, among the vines: it prepares the spray mix and refills the drone right where the work is done.'},
+es:{eye:'En el campo',h:'Entrega de un DS600 a la bodega La Tour Melas',p:'Sobre una pick-up, entre las viñas: prepara el caldo y recarga el dron justo donde se trabaja.'},
+it:{eye:'In campo',h:'Consegna di un DS600 alla cantina La Tour Melas',p:'Su un pick-up, tra i filari: prepara la miscela e rifornisce il drone proprio dove si lavora.'},
+fr:{eye:'Sur le terrain',h:'Livraison d’un DS600 au domaine La Tour Melas',p:'Sur un pick-up, au milieu des vignes : il prépare la bouillie et ravitaille le drone là où se fait le travail.'},
+de:{eye:'Im Einsatz',h:'Auslieferung eines DS600 an das Weingut La Tour Melas',p:'Auf einem Pick-up zwischen den Reben: Er bereitet die Spritzbrühe vor und betankt die Drohne direkt dort, wo gearbeitet wird.'},
+ro:{eye:'În câmp',h:'Livrarea unui DS600 la crama La Tour Melas',p:'Pe o camionetă, printre vițe: pregătește soluția de stropit și realimentează drona chiar acolo unde se lucrează.'}};
+const vidTag=cls=>`<video class="${cls}" src="files/dronespray-field.mp4" poster="img/field-poster.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="${(VIDT[lang]||VIDT.en).h}"></video>`;
+function vidSec(){const v=VIDT[lang]||VIDT.en,t=T[lang];return `<section class="band vid-band"><div class="wrap vid-grid"><div class="vid-frame">${vidTag('vid')}</div><div class="vid-copy"><span class="eyebrow">${v.eye}</span><h2>${v.h}</h2><p>${v.p}</p><a class="btn" href="#ds600">DS600 →</a></div></div></section>`}
+let vidIO=null;function vidRun(){if(vidIO)vidIO.disconnect();const vs=document.querySelectorAll('video.vid');if(!vs.length||!('IntersectionObserver' in window))return;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;vidIO=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting&&!still){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{threshold:.35});vs.forEach(v=>{if(still)v.controls=true;vidIO.observe(v)})}
 function home(){const t=T[lang];return `<section class="hero hero-c"><div class="wrap">${heroSlides()}<div class="hero-bar"><span class="hb-eye">${HX[lang].eye}</span><h1>${t.h1}</h1><p class="hb-lead">${HX[lang].lead}</p><div class="btn-row"><a class="btn" href="#products">${t.seeProducts} →</a><a class="btn ghost" href="#contact" data-subject="0">${t.quote}</a></div><div class="hb-cert" role="img" aria-label="CE | UKCA"><img src="img/ce-ukca.png" alt="CE | UKCA" width="644" height="334" decoding="async"></div><dl class="hb-stats">${HX[lang].st.map(([v,k])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div></section>
 ${pzSection()}
+${vidSec()}
 ${calcSec()}
 ${news()}
 <section class="band acc-home"><div class="wrap"><div class="acc-head"><div class="head"><h2>${t.accNav}</h2><p>${t.accPageP}</p></div><a class="more" href="#accessories">${t.accAll} →</a></div><div class="acc-car"><button type="button" class="car-btn" data-car="-1" aria-label="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><div class="acc-rail" id="acc-rail">${Array.from({length:Math.max(2,Math.ceil(8/ACC.length))},(_,k)=>accCards(ACC,k>0)).join('')}</div><button type="button" class="car-btn" data-car="1" aria-label="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div></div></section>
@@ -1179,7 +1200,7 @@ function chrome(view){const t=T[lang];document.documentElement.lang=lang;$('slog
 <div><h3>${t.addr}</h3><ul><li><strong>${coName()}</strong></li><li>${CO.addr[lang]}</li><li><span class="k">${t.hours}</span>${CO.hours[lang]}</li></ul></div></div>
 <div class="wrap"><div class="legal"><span>${t.legal}</span><span class="lg-links">${privLink()}${typeof HAS_GA!=='undefined'&&HAS_GA?`<a class="priv-link" href="#" data-ckset="1">${(PT[lang]||PT.en).ckSet}</a>`:''}</span></div></div>`;
   $('box-close').setAttribute('aria-label',t.close);$('box-close').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'}
-function render(scroll){const view=route();clearInterval(slideTimer);clearInterval(carTimer);$('view').innerHTML=view==='home'?home():view==='contact'?contact():view==='accessories'?accessories():view==='dealers'?dealers():view==='network'?network():view==='privacy'?privacy():view==='why'?whyPage():view.startsWith('acc-')?accPage(view.slice(4)):product(view);chrome(view.startsWith('acc-')?'accessories':view);startSlides();startCar();pzApply();calcRun();pageTitle(view);if($('ck'))ckBar(true);
+function render(scroll){const view=route();clearInterval(slideTimer);clearInterval(carTimer);$('view').innerHTML=view==='home'?home():view==='contact'?contact():view==='accessories'?accessories():view==='dealers'?dealers():view==='network'?network():view==='privacy'?privacy():view==='why'?whyPage():view.startsWith('acc-')?accPage(view.slice(4)):product(view);chrome(view.startsWith('acc-')?'accessories':view);startSlides();startCar();pzApply();calcRun();vidRun();pageTitle(view);if($('ck'))ckBar(true);
   if(scroll){const a=location.hash==='#products'?$('products'):null;if(a)a.scrollIntoView();else window.scrollTo(0,0)}}
 let BOXSET=[],BOXI=0,BOXPG=false;function boxCount(){let c=$("box-count");if(!c){c=document.createElement("span");c.id="box-count";c.className="box-count";$("box").appendChild(c)}c.textContent=BOXSET.length>1?(BOXI+1)+" / "+BOXSET.length:""}function boxGo(e){if(BOXSET.length<2)return;BOXI=(BOXI+e+BOXSET.length)%BOXSET.length;$("box-img").src=BOXSET[BOXI];$("box").classList.remove("zin");boxCount();if(BOXPG)pgGo(BOXI)}(()=>{let x0=null;const b=$("box");b.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});b.addEventListener("touchend",e=>{if(x0===null||b.classList.contains("zin"))return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40)boxGo(dx<0?1:-1)})})();
 document.addEventListener('keydown',e=>{if(!$('box').open)return;if(e.key==='ArrowRight')boxGo(1);if(e.key==='ArrowLeft')boxGo(-1)});

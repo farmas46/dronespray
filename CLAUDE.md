@@ -81,6 +81,7 @@ Optionally also run `python tools/build.py`.
   - The quote button opens the contact form with the model selected and the calculation in the message (`form.msg`).
   - Greek uses στρέμματα and L/στρέμμα; the other languages use ha and L/ha. Texts in `CALCT` (all 7 languages).
   - `CALCM`: DS models (tank, flow, weight, alternative with the same tank). `CALCD`: DJI / EAVision / XAG spray-tank volumes from the makers' official spec pages (ag.dji.com, xa.com, eavision.com), checked Nov 2026. No maker photos (copyright).
+- Field video on the home page, after the models (`vidSec()`, texts in `VIDT[lang]`, all 7 languages): «Παράδοση DS600 στο οινοποιείο La Tour Melas», owner-approved 2026-11-24. `files/dronespray-field.mp4` (720×1280 H.264, **no sound** — the owner wants none), poster `img/field-poster.jpg`. It plays muted in a loop only while on screen (`vidRun()`, called in `render()`). To replace it, re-encode to ~720×1280, a few MB, without audio.
 - `SS(path, sizes)` adds `srcset`. It is empty in src and filled by `prod.py`. Every new `<img>` template should use `${SS(x,'sizes')}`, plus `loading="lazy"` when below the fold.
 - Production block, near the end of the script:
   - `window.DS_CONFIG` (from `config.js`).
