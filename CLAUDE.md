@@ -114,4 +114,5 @@ Optionally also run `python tools/build.py`.
   - Domain: goes in `tools/site.json` → `url`.
   - GA4 measurement ID.
   - Formspree endpoint.
-- Hosting plan: private GitHub repo + Netlify (publish directory `dist`), or a public repo with GitHub Pages.
+- Hosting: public repo `farmas46/dronespray` on GitHub Pages (`.github/workflows/pages.yml` publishes `dist/`), domain www.dronespray-premixingsystems.com.
+  - Keep upload and deploy as **two separate jobs** (upload-pages-artifact@v5, then deploy-pages@v5 with `needs: upload`). In one job deploy-pages often fails with "No artifacts named github-pages were found" (GitHub race, Nov 2026); re-running does not help.
