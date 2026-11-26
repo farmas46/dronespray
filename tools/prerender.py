@@ -17,7 +17,7 @@ LANGS = ['el', 'en', 'es', 'it', 'fr', 'de', 'ro']
 VIEWS = ['home', 'ds600', 'ds500', 'ds420', 'ds400', 'ds300', 'ds200', 'ds200c', 'ds110', 'pm20',
          'accessories', 'dealers', 'network', 'contact', 'privacy', 'why'] + ['acc-' + a for a in (
          'pm2637', 'pm2545', 'pm2540', 'fm1', 'pdr', 'reel', 'panel', 'led', 'nozzle', 'lidmix', 'dpump',
-         'bracket', 'wsp', 'lid', 'herbkit', 'pnozzle', 'rinse', 'fillkit', 'doccase')]
+         'bracket', 'wsp', 'lid', 'herbkit', 'pnozzle', 'rinse', 'fillkit', 'doccase', 'tankwash')]
 
 
 def path_of(v, l):
