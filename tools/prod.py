@@ -213,7 +213,7 @@ head = f'''<!doctype html>
 {ldtag}
 </head>
 <body>
-<noscript><p style="padding:24px;font:16px Arial,sans-serif">Η ιστοσελίδα χρειάζεται JavaScript. This website needs JavaScript. Τηλ. 2410 622500 · dronespray@outlook.com.gr · info@farma.com.gr</p></noscript>
+<noscript><p style="padding:24px;font:16px Arial,sans-serif">Η ιστοσελίδα χρειάζεται JavaScript. This website needs JavaScript. Τηλ. 2410 622500 · info@farma.com.gr</p></noscript>
 '''
 html = head + re.sub(r'\n\s*\n', '\n', body) + '\n</body>\n</html>\n'
 html = re.sub(r'>\n\s+<', '>\n<', html)

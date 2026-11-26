@@ -109,6 +109,7 @@ Optionally also run `python tools/build.py`.
 
 ## Open items
 
+- Emails (owner's choice 2026-11-26): **only info@farma.com.gr** (the owner may add a second, personal address later and will say which); dronespray@outlook.com.gr is no longer used anywhere (`CO.emails`, seo-head, seo-body, llms.txt, prod.py noscript, site.json `formEmail`). The Formspree form `xoeddoqz` delivers to whatever inbox is set in the Formspree account.
 - Warranty: 1 year; delivery usually 3–4 weeks depending on availability (`WD` in src.html, side box on model pages).
 - Missing data:
   - DS110 dimensions and weight.
