@@ -73,6 +73,7 @@ Optionally also run `python tools/build.py`.
   - Model order arrays appear in several places: search `'ds420','ds400','ds300'`.
   - The comparison uses `M` and `SH` in `cmpTable`.
   - New-model badge: `NEWM=['ds400']`.
+- Power supply is **230 V** (not 220 V) on all models with the 1 HP INOX pump; the DS110 is 12 V. Model pages show the pump's electrical data under «Βασικά στοιχεία» in a table «Ηλεκτρικά χαρακτηριστικά αντλίας» (`pumpBlock()`, labels in `PUMPE[lang]`, all 7 languages): 230 V, 50 Hz, 6,0 A, P2 0,75 kW, capacitor 20 µF / 450 V, insulation class F. Owner-approved 2026-11-26.
 - Accessories: `ACC` array.
 - Spray calculator on the home page, below the models (owner's approved design, 2026-11-19: dark card, sliders, brand tabs, yellow model card with a slanted dark panel, tappable model bars).
   - `calcSec()` builds it, `calcRun()` (called in `render()`) fills it; state in `CS`; clicks and inputs handled by delegated listeners.

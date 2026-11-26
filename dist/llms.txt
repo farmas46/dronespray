@@ -11,15 +11,15 @@ Address: 3rd km Larissa – Karditsa road, 41500 Larissa, Greece
 
 All units have a polyethylene tank on a metal frame, continuous dual agitation, a rotating tank rinse nozzle, a chemical container rinsing system, a Camlock coupling, a 3/4" hose with filling gun, a control unit, a glycerine pressure gauge and a level indicator.
 
-- DS600: 600 L tank, 1 HP stainless (INOX) centrifugal pump, up to 80 L/min, 220 V. 175 × 70 × 150 cm, 160 kg. The largest tank in the range.
+- DS600: 600 L tank, 1 HP stainless (INOX) centrifugal pump (230 V, 50 Hz, 6.0 A, 0.75 kW shaft power, 20 µF / 450 V capacitor, insulation class F), up to 80 L/min, 230 V. 175 × 70 × 150 cm, 160 kg. The largest tank in the range.
 - DS500: 500 L tank, 1 HP stainless centrifugal pump, up to 80 L/min. 150 × 100 × 115 cm, 100 kg. Temporarily unavailable.
 - DS420 Cone: 420 L conical tank for complete draining, 1 HP stainless centrifugal pump, up to 80 L/min. 90 × 80 × 126 cm, 80 kg.
 - DS400: 400 L tank on a compact metal panel with a side battery box. 151 × 68 × 140 cm, 135 kg. New model.
 - DS300: 300 L tank, 1 HP stainless centrifugal pump, up to 80 L/min. 140 × 48.5 × 139 cm, 90 kg.
 - DS200: 200 L tank, 1 HP stainless centrifugal pump, up to 80 L/min. 140 × 48.5 × 127 cm, 80 kg.
 - DS200 Cone: 200 L conical tank, 1 HP stainless centrifugal pump, up to 80 L/min. 78 × 57 × 135 cm, 50 kg. The lightest unit.
-- DS110 Cone: 110 L conical tank, 12 V diaphragm pump, up to 19 L/min, runs from a 12 V battery with no 220 V power needed in the field.
-- External Pre-Mixer 20 L: standalone pre-mixing unit with its own 1 HP stainless centrifugal pump, up to 60 L/min, 220 V. 70 × 40 × 45 cm. Also optional equipment for the DS600 and DS420.
+- DS110 Cone: 110 L conical tank, 12 V diaphragm pump, up to 19 L/min, runs from a 12 V battery with no 230 V power needed in the field.
+- External Pre-Mixer 20 L: standalone pre-mixing unit with its own 1 HP stainless centrifugal pump, up to 60 L/min, 230 V. 70 × 40 × 45 cm. Also optional equipment for the DS600 and DS420.
 
 ## Pages
 
